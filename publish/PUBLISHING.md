@@ -93,6 +93,16 @@ dsh plugin --profile web add dsh-local-codex
 3. 开 PR（只加这一个文件，不改 README），等待 CI + 维护者评审。
 4. 合并后市场目录自动刷新；用户可在「插件市场 / Discover」里搜到并通过 npm 一键安装。
 
+## 市场目录 PR 已预置（2026-11-20 晚）
+
+- 已 fork 上游并创建分支：<https://github.com/Anzerwhite/awesome-dsh-plugin/tree/add/Anzerwhite-dsh-local-codex>
+- 条目文件已提交到分支：`data/plugins/Anzerwhite__dsh-local-codex.yml`
+- 自动化脚本：`publish/open-catalog-pr.sh`
+  - `--prepare-only`：只 staging（已完成）
+  - 无参数：仓库满 1 天后开放 PR（内置 1 天年龄守卫与幂等检查）
+- 计划：`2026-11-21T10:40Z`（仓库满 1 天后）由定时提醒调用脚本开放 PR。
+- GitHub token 存放：仓库根 `.config`（已加入 `.gitignore`，权限 600）；用完建议吊销。
+
 ## 当前状态（2026-11-20 18:4x）
 
 - ✅ GitHub 仓库已创建并推送：<https://github.com/Anzerwhite/dsh-local-codex>，topics 含 `dsh-plugin`。
