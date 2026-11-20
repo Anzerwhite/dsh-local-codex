@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Local Codex Mode",
+    "description": "Hand one DeepSeek Harness session to your local Codex CLI and show its replies, commands and file changes inline."
+  }
+}

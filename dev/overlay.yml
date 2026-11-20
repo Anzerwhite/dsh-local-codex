@@ -1,0 +1,16 @@
+# dev/overlay.yml — T-test E2E overlay for the headless profile.
+#
+# Purpose: mount this repo's plugin (`//index.js`) into `dsh --profile headless`
+# WITHOUT touching the installed profile under $DSH_HOME/profiles/headless.
+# Used by test/run-headless.mjs via `dsh --profile headless --patch <this file>`.
+#
+# Loader patch dialect: top-level YAML array of patch entries. An inserted row's
+# relative `name` is anchored beside this patch file (i.e. '../index.js' ->
+# /workspace/dsh_ifself/index.js), so the overlay is relocatable with the repo.
+#
+# Row id is deliberately distinct from the bundle row id (`codex-mode` in
+# cordis.patch.yml) so mounting via --patch never collides with an installed
+# copy of the plugin: exactly one of the two should be present per run.
+- insert:
+    - id: codex-mode-test
+      name: '../index.js'

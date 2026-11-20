@@ -1,0 +1,12 @@
+# dev/probe.overlay.yml — T-test dev overlay that additionally mounts the
+# service probe (dev/probe-plugin.js). Not used by CI scenarios; kept so the
+# service inventory in dev/NOTES.md can be reproduced.
+#
+#   DSH_PROBE_OUT=/tmp/dsh-codex-probe.json \
+#   DSH_HOME=/tmp/dsh-codex-home-probe dsh --profile headless \
+#     --patch /workspace/dsh_ifself/dev/probe.overlay.yml "say hi"
+- insert:
+    - id: codex-mode-test
+      name: '../index.js'
+    - id: codex-mode-test-probe
+      name: './probe-plugin.js'

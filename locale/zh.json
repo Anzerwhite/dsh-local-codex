@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "本机 Codex 模式",
+    "description": "把单个 DeepSeek Harness 会话交给本机 Codex 代理，并在同一对话流中同步显示它的回复、命令与文件改动。"
+  }
+}

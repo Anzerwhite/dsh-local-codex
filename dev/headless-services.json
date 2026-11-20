@@ -1,0 +1,2643 @@
+{
+  "why": "steady",
+  "snapshots": [
+    {
+      "time": "2026-11-20T08:14:05.627Z",
+      "pid": 3240908,
+      "counts": {
+        "all": 8,
+        "active": 8,
+        "inactive": 0
+      },
+      "services": {
+        "dshHomePath": {
+          "ctor": "Function"
+        },
+        "loader": {
+          "ctor": "Loader",
+          "fields": [
+            "builtins",
+            "config",
+            "ctx",
+            "enableLogs",
+            "envData",
+            "internal",
+            "name",
+            "root",
+            "store"
+          ],
+          "methods": [
+            "await",
+            "create",
+            "ensureId",
+            "entries",
+            "exit",
+            "getTasks",
+            "import",
+            "locate",
+            "remove",
+            "resolve",
+            "resolveGroup",
+            "showLog",
+            "unwrapExports",
+            "update",
+            "write"
+          ]
+        },
+        "profileContext": {
+          "ctor": "Object",
+          "fields": [
+            "cwd",
+            "dir",
+            "home",
+            "installAnchor",
+            "name",
+            "overlays",
+            "patchPath",
+            "startedBundles",
+            "telemetryDisabledEnv"
+          ]
+        },
+        "launchEnvironment": {
+          "ctor": "Object",
+          "fields": [
+            "get",
+            "getFrom"
+          ]
+        },
+        "pluginPackages": {
+          "ctor": "PluginPackages",
+          "fields": [
+            "ctx",
+            "current",
+            "disposeWorkerResolution",
+            "interception",
+            "name",
+            "packages"
+          ],
+          "methods": [
+            "metaOf",
+            "packageOf",
+            "refresh",
+            "replace"
+          ]
+        },
+        "cmdlineArgs": {
+          "ctor": "Object",
+          "fields": [
+            "get"
+          ]
+        },
+        "appExit": {
+          "ctor": "Function"
+        },
+        "appReady": {
+          "ctor": "Object",
+          "fields": [
+            "onReady"
+          ]
+        }
+      },
+      "inactiveNames": [],
+      "interesting": {
+        "agent": {
+          "active": false
+        },
+        "agents": {
+          "active": false
+        },
+        "agentLoop": {
+          "active": false
+        },
+        "agent-loop": {
+          "active": false
+        },
+        "session": {
+          "active": false
+        },
+        "sessions": {
+          "active": false
+        },
+        "llm": {
+          "active": false
+        },
+        "tools": {
+          "active": false
+        },
+        "commands": {
+          "active": false
+        },
+        "commandFeedback": {
+          "active": false
+        },
+        "systemPrompt": {
+          "active": false
+        },
+        "sessionPersistence": {
+          "active": false
+        },
+        "sessionQuery": {
+          "active": false
+        },
+        "sessionProjection": {
+          "active": false
+        },
+        "storage": {
+          "active": false
+        },
+        "storageDomain": {
+          "active": false
+        },
+        "storageHub": {
+          "active": false
+        },
+        "attachments": {
+          "active": false
+        },
+        "sessionController": {
+          "active": false
+        },
+        "modelCatalog": {
+          "active": false
+        },
+        "gateway": {
+          "active": false
+        },
+        "apiGateway": {
+          "active": false
+        },
+        "remote": {
+          "active": false
+        },
+        "profileContext": {
+          "active": true,
+          "impl": {
+            "ctor": "Object",
+            "fields": [
+              "cwd",
+              "dir",
+              "home",
+              "installAnchor",
+              "name",
+              "overlays",
+              "patchPath",
+              "startedBundles",
+              "telemetryDisabledEnv"
+            ]
+          }
+        },
+        "loader": {
+          "active": true,
+          "impl": {
+            "ctor": "Loader",
+            "fields": [
+              "builtins",
+              "config",
+              "ctx",
+              "enableLogs",
+              "envData",
+              "internal",
+              "name",
+              "root",
+              "store"
+            ],
+            "methods": [
+              "await",
+              "create",
+              "ensureId",
+              "entries",
+              "exit",
+              "getTasks",
+              "import",
+              "locate",
+              "remove",
+              "resolve",
+              "resolveGroup",
+              "showLog",
+              "unwrapExports",
+              "update",
+              "write"
+            ]
+          }
+        },
+        "logger": {
+          "active": false
+        },
+        "settings": {
+          "active": false
+        },
+        "credentials": {
+          "active": false
+        },
+        "authorization": {
+          "active": false
+        },
+        "approval": {
+          "active": false
+        },
+        "userApproval": {
+          "active": false
+        },
+        "permission": {
+          "active": false
+        },
+        "sandbox": {
+          "active": false
+        },
+        "sandboxPolicy": {
+          "active": false
+        },
+        "fs": {
+          "active": false
+        },
+        "subprocess": {
+          "active": false
+        },
+        "jobs": {
+          "active": false
+        },
+        "timer": {
+          "active": false
+        },
+        "hmr": {
+          "active": false
+        },
+        "typert": {
+          "active": false
+        },
+        "typertRegistry": {
+          "active": false
+        },
+        "spill": {
+          "active": false
+        },
+        "tokenMeter": {
+          "active": false
+        },
+        "skills": {
+          "active": false
+        },
+        "web": {
+          "active": false
+        },
+        "mcp": {
+          "active": false
+        },
+        "otel": {
+          "active": false
+        }
+      },
+      "why": "mount"
+    },
+    {
+      "time": "2026-11-20T08:14:07.633Z",
+      "pid": 3240908,
+      "counts": {
+        "all": 60,
+        "active": 60,
+        "inactive": 0
+      },
+      "services": {
+        "dshHomePath": {
+          "ctor": "Function"
+        },
+        "loader": {
+          "ctor": "Loader",
+          "fields": [
+            "builtins",
+            "config",
+            "ctx",
+            "enableLogs",
+            "envData",
+            "internal",
+            "name",
+            "root",
+            "store"
+          ],
+          "methods": [
+            "await",
+            "create",
+            "ensureId",
+            "entries",
+            "exit",
+            "getTasks",
+            "import",
+            "locate",
+            "remove",
+            "resolve",
+            "resolveGroup",
+            "showLog",
+            "unwrapExports",
+            "update",
+            "write"
+          ]
+        },
+        "profileContext": {
+          "ctor": "Object",
+          "fields": [
+            "cwd",
+            "dir",
+            "home",
+            "installAnchor",
+            "name",
+            "overlays",
+            "patchPath",
+            "startedBundles",
+            "telemetryDisabledEnv"
+          ]
+        },
+        "launchEnvironment": {
+          "ctor": "Object",
+          "fields": [
+            "get",
+            "getFrom"
+          ]
+        },
+        "pluginPackages": {
+          "ctor": "PluginPackages",
+          "fields": [
+            "ctx",
+            "current",
+            "disposeWorkerResolution",
+            "interception",
+            "name",
+            "packages"
+          ],
+          "methods": [
+            "metaOf",
+            "packageOf",
+            "refresh",
+            "replace"
+          ]
+        },
+        "cmdlineArgs": {
+          "ctor": "Object",
+          "fields": [
+            "get"
+          ]
+        },
+        "appExit": {
+          "ctor": "Function"
+        },
+        "appReady": {
+          "ctor": "Object",
+          "fields": [
+            "onReady"
+          ]
+        },
+        "timer": {
+          "ctor": "TimerService",
+          "fields": [
+            "ctx",
+            "name"
+          ],
+          "methods": [
+            "_schedule",
+            "debounce",
+            "interval",
+            "setInterval",
+            "setTimeout",
+            "throttle",
+            "timeout"
+          ]
+        },
+        "deepseekLlmApiExtensions": {
+          "ctor": "DeepSeekLlmApiExtensionRegistry",
+          "fields": [
+            "ctx",
+            "name",
+            "providers",
+            "warnedFields"
+          ],
+          "methods": [
+            "prepare",
+            "register"
+          ]
+        },
+        "sessions": {
+          "ctor": "SessionStore",
+          "fields": [
+            "counter",
+            "ctx",
+            "name",
+            "projections",
+            "store"
+          ],
+          "methods": [
+            "_forkBoundary",
+            "_resolveForkSource",
+            "announce",
+            "create",
+            "detachEntered",
+            "emitDisposed",
+            "enter",
+            "flush",
+            "fork",
+            "get",
+            "list",
+            "liveEntryFor",
+            "prepare",
+            "registerMessageProjection"
+          ]
+        },
+        "agents": {
+          "ctor": "AgentRegistry",
+          "fields": [
+            "activeInitiatorRuns",
+            "ctx",
+            "factory",
+            "initiatorDisposal",
+            "initiatorDrain",
+            "initiatorRuns",
+            "initiatorState",
+            "initiators",
+            "name",
+            "store"
+          ],
+          "methods": [
+            "announce",
+            "assertInitiatorsReadable",
+            "closeInitiators",
+            "create",
+            "currentInitiator",
+            "detachEntered",
+            "disposeInitiators",
+            "emitDisposed",
+            "enter",
+            "get",
+            "hasLifecycleAncestor",
+            "isOwnedBy",
+            "list",
+            "register",
+            "releaseInitiatorRun",
+            "releaseReentrantInitiatorRuns",
+            "requireFactory",
+            "requireInitiator",
+            "resume",
+            "roots",
+            "runWithInitiator",
+            "setFactory",
+            "withInitiator",
+            "withoutInitiator"
+          ]
+        },
+        "agentDefaultModel": {
+          "ctor": "AgentDefaultModelConfig",
+          "fields": [
+            "config",
+            "ctx",
+            "name",
+            "ownerContext",
+            "saves"
+          ],
+          "methods": [
+            "currentSelection",
+            "saveSelection"
+          ]
+        },
+        "jobs": {
+          "ctor": "LocalJobRegistry",
+          "fields": [
+            "ctx",
+            "hub",
+            "layers",
+            "maxConcurrentJobsPerOwner",
+            "name",
+            "ownerCleanups",
+            "pumpPollMs",
+            "retainBytes",
+            "selfCtx",
+            "settledRetainBytes",
+            "store"
+          ],
+          "methods": [
+            "activeJobCount",
+            "appendRing",
+            "assertAccess",
+            "attachController",
+            "cancelForTeardown",
+            "disposeAll",
+            "disposeOwned",
+            "drop",
+            "emit",
+            "emitOutput",
+            "ensureOwnerCleanup",
+            "expect",
+            "get",
+            "guardSource",
+            "kill",
+            "killJob",
+            "list",
+            "read",
+            "readAt",
+            "readJob",
+            "recordSessionEvent",
+            "remove",
+            "resolveOwner",
+            "servesOwner",
+            "settle",
+            "start",
+            "updateProgress",
+            "view",
+            "wait",
+            "waitJob"
+          ]
+        },
+        "attachments": {
+          "ctor": "LocalAttachmentStore",
+          "fields": [
+            "cacheRoot",
+            "compression",
+            "ctx",
+            "imageCompressionConcurrency",
+            "imageLimits",
+            "name",
+            "normalizationPolicy",
+            "requestInflight",
+            "root"
+          ],
+          "methods": [
+            "admitEncodedFile",
+            "admitPromptContent",
+            "fileHostPath",
+            "imageHostPath",
+            "isAttachmentError",
+            "readFileStream",
+            "readImage",
+            "readImageRequest",
+            "requestVersion",
+            "saveFile",
+            "saveFileStream",
+            "saveImage",
+            "saveImages",
+            "validateImage",
+            "validateImageBatch"
+          ]
+        },
+        "storage": {
+          "ctor": "Storage",
+          "fields": [
+            "backend",
+            "ctx",
+            "forms",
+            "name"
+          ],
+          "methods": [
+            "form",
+            "mount"
+          ]
+        },
+        "approval": {
+          "ctor": "ApprovalService",
+          "fields": [
+            "config",
+            "ctx",
+            "name"
+          ],
+          "methods": [
+            "decide",
+            "effectivePolicy",
+            "overrideOf",
+            "request",
+            "setPolicy"
+          ]
+        },
+        "skills": {
+          "ctor": "SkillRegistry",
+          "fields": [
+            "collectCache",
+            "collectCacheMaxEntries",
+            "ctx",
+            "layers",
+            "name",
+            "nextProviderOrder",
+            "nextScopeId",
+            "revision",
+            "scopeIds"
+          ],
+          "methods": [
+            "collect",
+            "collectCacheKey",
+            "collectFresh",
+            "collectLayer",
+            "get",
+            "invalidateCache",
+            "invalidateEntry",
+            "list",
+            "listLayerCandidates",
+            "notifyChange",
+            "register",
+            "registerProvider",
+            "scopeId",
+            "snapshot"
+          ]
+        },
+        "spillStore": {
+          "ctor": "LocalSpillStore",
+          "fields": [
+            "cleanup",
+            "config",
+            "ctx",
+            "name",
+            "root"
+          ],
+          "methods": [
+            "defaultRootsBase",
+            "gatherRoots",
+            "runCleanup",
+            "saveText"
+          ]
+        },
+        "web": {
+          "ctor": "WebRuntime",
+          "fields": [
+            "config",
+            "ctx",
+            "fetchProviderEnv",
+            "fetchProviders",
+            "name",
+            "searchProviderEnv",
+            "searchProviders"
+          ],
+          "methods": [
+            "fetch",
+            "registerFetchProvider",
+            "registerProvider",
+            "registerSearchProvider",
+            "search"
+          ]
+        },
+        "systemPrompt": {
+          "ctor": "SystemPrompt",
+          "fields": [
+            "ctx",
+            "layers",
+            "name",
+            "toolOrder"
+          ],
+          "methods": [
+            "assemble",
+            "context",
+            "getContextOrder",
+            "getSectionOrder",
+            "refreshContext",
+            "section",
+            "suppressRuntimeContext",
+            "tools",
+            "variable"
+          ]
+        },
+        "llm": {
+          "ctor": "LlmRuntime",
+          "fields": [
+            "adapters",
+            "ctx",
+            "directory",
+            "discoveries",
+            "name",
+            "typertRemote"
+          ],
+          "methods": [
+            "adapterStream",
+            "commitRoutes",
+            "detachedModalities",
+            "discoverModels",
+            "emitAdaptersUpdated",
+            "fileReadPath",
+            "fileRequestText",
+            "forAdapter",
+            "imageRequestPricing",
+            "imageRequestTarget",
+            "listConfigurableProviders",
+            "listModels",
+            "listProviders",
+            "normalizeModelInfo",
+            "prepareCall",
+            "prepareRoutes",
+            "providerRetryPolicy",
+            "registerAdapter",
+            "registerConfigurableProviders",
+            "registerModelDiscovery",
+            "registration",
+            "remoteDiscoverModels",
+            "resolveCallConfig",
+            "resolveCallFor",
+            "resolveCallWithInfo",
+            "resolveModelInfo",
+            "resolveModelInfoFor",
+            "stream",
+            "streamWithRegistration",
+            "warnAdaptersListenerFailure"
+          ]
+        },
+        "remoteAccess": {
+          "ctor": "RemoteAccessService",
+          "fields": [
+            "ctx",
+            "followers",
+            "lifetime",
+            "name",
+            "policies",
+            "reported",
+            "typertRemote"
+          ],
+          "methods": [
+            "allows",
+            "bindingsOf",
+            "decide",
+            "evaluate",
+            "explain",
+            "follow",
+            "grantsFor",
+            "invalidate",
+            "registerPolicy",
+            "report",
+            "snapshotFor"
+          ]
+        },
+        "configEditor": {
+          "ctor": "ConfigEditor",
+          "fields": [
+            "ctx",
+            "name",
+            "ownerContext"
+          ],
+          "methods": [
+            "configuration",
+            "edit",
+            "entries",
+            "inherited"
+          ]
+        },
+        "sessionProjections": {
+          "ctor": "SessionProjectionRegistry",
+          "fields": [
+            "ctx",
+            "listeners",
+            "name",
+            "registrations"
+          ],
+          "methods": [
+            "advanceCell",
+            "buildCell",
+            "cachedSnapshot",
+            "cellFor",
+            "checkpoint",
+            "drive",
+            "hydrate",
+            "materializeCells",
+            "onChanged",
+            "register",
+            "restore",
+            "restoreFloor",
+            "snapshot",
+            "stateOf",
+            "viewCell",
+            "viewCheckpoint"
+          ]
+        },
+        "storage.backend.json": {
+          "ctor": "JsonStorageBackend",
+          "fields": [
+            "closed",
+            "kv",
+            "open",
+            "opening",
+            "root"
+          ],
+          "methods": [
+            "close",
+            "openUnit"
+          ]
+        },
+        "shellEnv": {
+          "ctor": "ShellEnvRegistry",
+          "fields": [
+            "contributors",
+            "ctx",
+            "dshHome",
+            "keyOwners",
+            "name"
+          ],
+          "methods": [
+            "collect",
+            "list",
+            "register"
+          ]
+        },
+        "commands": {
+          "ctor": "CommandRuntime",
+          "fields": [
+            "commandSeq",
+            "ctx",
+            "fileReceipts",
+            "instanceToken",
+            "layers",
+            "name",
+            "typertRemote"
+          ],
+          "methods": [
+            "appendLifecycle",
+            "execute",
+            "find",
+            "list",
+            "mintCommandId",
+            "notifyChange",
+            "register",
+            "registerFileReceiptResolver",
+            "settleThrown",
+            "view"
+          ]
+        },
+        "tools": {
+          "ctor": "ToolRuntime",
+          "fields": [
+            "cancellationStates",
+            "canonicalResults",
+            "concludingExecutions",
+            "contentFinalizers",
+            "contentProjectors",
+            "ctx",
+            "defaultMode",
+            "deferredContexts",
+            "layers",
+            "maxParallelSubCalls",
+            "name",
+            "ptcContext",
+            "ptcTransport"
+          ],
+          "methods": [
+            "applyFinalContent",
+            "callerCancelled",
+            "cancellationResult",
+            "collapseSection",
+            "collapses",
+            "completeScheduledExecution",
+            "createExecution",
+            "createSuccessResult",
+            "dispatchScheduledExecution",
+            "dispatchToolBody",
+            "execute",
+            "executionMode",
+            "finalizeScheduledExecution",
+            "finishScheduledExecution",
+            "get",
+            "guard",
+            "guardReason",
+            "markCanonical",
+            "materializeFinalResult",
+            "modeFor",
+            "normalizeDispatchResult",
+            "notifyResult",
+            "postExecute",
+            "prepareExecution",
+            "prepareScheduledExecution",
+            "presentAs",
+            "register",
+            "requirePtcRuntime",
+            "requirePtcTransport",
+            "resolveExecution",
+            "restrict",
+            "schemaOf",
+            "schemas",
+            "sdkSchemas",
+            "sdkSection",
+            "serviceAsk",
+            "shapeDispatchLog",
+            "view",
+            "wireSchemas"
+          ]
+        },
+        "settings": {
+          "ctor": "SettingsForms",
+          "fields": [
+            "closed",
+            "ctx",
+            "name",
+            "ownerContext",
+            "presentations",
+            "revisions",
+            "scheduled"
+          ],
+          "methods": [
+            "configure",
+            "describe",
+            "importLegacyDocument",
+            "invalidate",
+            "mutate",
+            "prepareDocument",
+            "replace",
+            "schema",
+            "update",
+            "write"
+          ]
+        },
+        "storageDomain": {
+          "ctor": "DomainFacility",
+          "fields": [
+            "config",
+            "ctx",
+            "domains",
+            "reserved"
+          ],
+          "methods": [
+            "closeAll",
+            "get",
+            "open"
+          ]
+        },
+        "subprocess": {
+          "ctor": "LocalSubprocessRuntime",
+          "fields": [
+            "controlChannels",
+            "ctx",
+            "fallbackWarningIssued",
+            "internals",
+            "linuxScope",
+            "linuxScopeDecision",
+            "live",
+            "name",
+            "reportSpillFailure",
+            "terminalInspector",
+            "terminals"
+          ],
+          "methods": [
+            "disposeManagedProcesses",
+            "executableCandidates",
+            "resolveExecutable",
+            "selectContainmentMode",
+            "spawn",
+            "spawnTerminal",
+            "terminalEnvironment",
+            "terminateForHostExit",
+            "warnFallback",
+            "watchLinuxScopeStart"
+          ]
+        },
+        "sandbox": {
+          "ctor": "LocalSandboxProvider",
+          "fields": [
+            "configuredRunnerFailureSignatures",
+            "ctx",
+            "internals",
+            "name",
+            "probeTimeoutMs",
+            "runnerCommand",
+            "selectedRunner",
+            "tempCapabilities",
+            "workspaceGrants"
+          ],
+          "methods": [
+            "chainVerdict",
+            "confine",
+            "landlockLauncher",
+            "materializeAclGrant",
+            "probeRunner",
+            "removeTempDir",
+            "revokeAclGrants",
+            "runnerArgv",
+            "seatbeltExec",
+            "selectRunner",
+            "windowsAclRunnerArgv",
+            "windowsAclRunnerInvocation"
+          ]
+        },
+        "mcpResources": {
+          "ctor": "McpResourceRuntime",
+          "fields": [
+            "ctx",
+            "layers",
+            "name",
+            "selfCtx"
+          ],
+          "methods": [
+            "register",
+            "registerTools",
+            "request"
+          ]
+        },
+        "sessionPersistence": {
+          "ctor": "JsonlSessionPersistence",
+          "fields": [
+            "coldLogMemo",
+            "compression",
+            "config",
+            "ctx",
+            "generationFormat",
+            "identity",
+            "listLimit",
+            "migrationPreparations",
+            "name",
+            "root",
+            "rootEncodingCheck",
+            "tracker"
+          ],
+          "methods": [
+            "acquireLease",
+            "acquireWriteLease",
+            "appendLines",
+            "assertLogParentAllowsAbsence",
+            "assertStoredIdentity",
+            "assertUsableRoot",
+            "checkRootEncoding",
+            "create",
+            "currentHeader",
+            "decodeStoredLog",
+            "encodeEventBatch",
+            "encodeMaterialization",
+            "encodingMismatch",
+            "ensureRootEncoding",
+            "exists",
+            "findLog",
+            "findOppositeGenerationInDirectory",
+            "flush",
+            "generationFailure",
+            "hasPendingSession",
+            "historicalCorpusRevision",
+            "legacyLayout",
+            "list",
+            "listArtifacts",
+            "listGenerations",
+            "listProjectDirs",
+            "listSessionDirs",
+            "loadStoredMigration",
+            "locate",
+            "mapSessionDirectories",
+            "materialize",
+            "materializePosix",
+            "materializeWin32",
+            "memoizeStoredLog",
+            "open",
+            "oppositeCompression",
+            "persistBatch",
+            "persistHeader",
+            "prepareStoredMigration",
+            "publishStoredMigration",
+            "readFirstLine",
+            "readFirstZstdLine",
+            "readGenerationHeader",
+            "readStoredLog",
+            "readZstdPrefix",
+            "rejectExistingLog",
+            "rejectLegacyFlatArtifact",
+            "rejectOppositeArtifact",
+            "releaseHandle",
+            "repair",
+            "requireStoredLog",
+            "resolveCurrentLog",
+            "resolveGenerationInDirectory",
+            "rollbackAppend",
+            "sameFile",
+            "stat",
+            "syncDirPosix",
+            "truncateTornTail",
+            "validateSourceIdentity",
+            "waitForPreparation",
+            "writeSyncedTempFile"
+          ]
+        },
+        "sessionFeedback": {
+          "ctor": "SessionFeedbackService",
+          "fields": [
+            "ctx",
+            "name",
+            "typertRemote"
+          ],
+          "methods": [
+            "record"
+          ]
+        },
+        "headlessStartup": {
+          "ctor": "Object",
+          "fields": [
+            "json",
+            "sessionId",
+            "task"
+          ]
+        },
+        "typert": {
+          "ctor": "TypertRegistry",
+          "fields": [
+            "contextStore",
+            "ctx",
+            "localStore",
+            "lookupStore",
+            "name",
+            "packages",
+            "remoteStore",
+            "resourceStore",
+            "schemas"
+          ],
+          "methods": [
+            "get",
+            "getPackage",
+            "list",
+            "listPackages",
+            "register",
+            "resolve",
+            "toJSONSchema",
+            "validatePackage",
+            "validateSchemas"
+          ]
+        },
+        "sessionTitle": {
+          "ctor": "SessionTitleService",
+          "fields": [
+            "config",
+            "ctx",
+            "inFlight",
+            "lifetime",
+            "name",
+            "ownerFiber",
+            "registration",
+            "work"
+          ],
+          "methods": [
+            "activate",
+            "appendFallback",
+            "assertCurrent",
+            "assertServiceActive",
+            "defer",
+            "drain",
+            "ensureFallback",
+            "get",
+            "onMainRequest",
+            "onRequestHeader",
+            "onUserMessage",
+            "refresh",
+            "register",
+            "rename",
+            "runProvider",
+            "serviceActive",
+            "startPending",
+            "startProvider",
+            "stateFor",
+            "supersede",
+            "titleInputOf",
+            "track",
+            "validateProvider",
+            "validateResult"
+          ]
+        },
+        "userQuestions": {
+          "ctor": "UserQuestionService",
+          "fields": [
+            "ctx",
+            "name",
+            "queuedReplies",
+            "typertRemote",
+            "waits"
+          ],
+          "methods": [
+            "answer",
+            "ask",
+            "askTimed",
+            "assertLiveRoot",
+            "attachWait",
+            "continued",
+            "releaseReply"
+          ]
+        },
+        "sessionProjectionCache": {
+          "ctor": "SessionProjectionCache",
+          "fields": [
+            "config",
+            "ctx",
+            "dirty",
+            "name",
+            "table"
+          ],
+          "methods": [
+            "cachedPredecessorTitle",
+            "cachedSnapshot",
+            "coldSnapshot",
+            "flushSoft",
+            "hydratePrepared",
+            "installWritePath",
+            "markClean",
+            "put",
+            "recordFor",
+            "requireTable",
+            "viewRecord",
+            "write"
+          ]
+        },
+        "sandboxPolicy": {
+          "ctor": "SandboxPolicyService",
+          "fields": [
+            "ctx",
+            "defaultMode",
+            "name",
+            "workspaceRoot"
+          ],
+          "methods": [
+            "overrideOf",
+            "resolve"
+          ]
+        },
+        "goals": {
+          "ctor": "GoalService",
+          "fields": [
+            "ctx",
+            "name",
+            "resolved",
+            "runtimeStates",
+            "typertRemote"
+          ],
+          "methods": [
+            "assertLive",
+            "block",
+            "clear",
+            "commit",
+            "commitCurrent",
+            "commitSnapshot",
+            "complete",
+            "create",
+            "disarm",
+            "edit",
+            "expectCurrent",
+            "get",
+            "nextMutationTime",
+            "pause",
+            "prepareMutation",
+            "remoteExportCreate",
+            "resume",
+            "runtimeState",
+            "setActivation",
+            "state",
+            "transition",
+            "transitionError",
+            "view",
+            "withPhase"
+          ]
+        },
+        "tokenMeter": {
+          "ctor": "TokenMeter",
+          "fields": [
+            "ctx",
+            "name",
+            "states"
+          ],
+          "methods": [
+            "_estimateProviderAssistant",
+            "_fileRequestText",
+            "_foldEvent",
+            "_routeImagePricing",
+            "_sync",
+            "estimateMessage",
+            "measure"
+          ]
+        },
+        "agentLoop": {
+          "ctor": "AgentLoop",
+          "fields": [
+            "config",
+            "ctx",
+            "name",
+            "ownership",
+            "runtime"
+          ],
+          "methods": [
+            "appendUnstoredSuffix",
+            "create",
+            "createAgent",
+            "createStoredSession",
+            "initializeAgent",
+            "prepare",
+            "reportConfiguredStartupFailure",
+            "restoreOrCreateConfigured",
+            "resume",
+            "resumeWith",
+            "setupAndPublish",
+            "waitForDrainingConfiguredIdentity"
+          ]
+        },
+        "typertGateway": {
+          "ctor": "TypertGatewayService",
+          "fields": [
+            "ctx",
+            "name",
+            "pendingRemoteEvents",
+            "remoteEventClients",
+            "remoteEvents",
+            "srcClaims",
+            "wireStream"
+          ],
+          "methods": [
+            "broadcastRemoteEvent",
+            "cancelRemoteEvent",
+            "claimsEndpoint",
+            "closeRemoteEvents",
+            "collectSrcClaims",
+            "consumeRemoteEvents",
+            "deliverRemoteEvent",
+            "dispatchRpc",
+            "finishRemoteEvent",
+            "hasLiveClient",
+            "invoke",
+            "invokePrepared",
+            "invokeRpc",
+            "openRemoteEvents",
+            "openStream",
+            "openWireStream",
+            "prepareInvocation",
+            "receiveRemoteEventResult",
+            "registerRemoteEvents",
+            "removeRemoteEventClient",
+            "removeRemoteEventDelivery",
+            "resolveDescriptor",
+            "resolveParameter",
+            "resolveReceiverContext",
+            "resolveSrcDescriptor",
+            "resourceReaders",
+            "settleRemoteEvent",
+            "srcDescriptor",
+            "startRemoteEvent",
+            "stream"
+          ]
+        },
+        "shell": {
+          "ctor": "SandboxBashExecutor",
+          "fields": [
+            "config",
+            "ctx",
+            "mode",
+            "name",
+            "processFacts"
+          ],
+          "methods": [
+            "confine",
+            "execute",
+            "executeArgv",
+            "onProcessDone",
+            "resolve",
+            "spawnSpec"
+          ]
+        },
+        "fs": {
+          "ctor": "SandboxedFileSystem",
+          "fields": [
+            "config",
+            "ctx",
+            "defaultMode",
+            "internals",
+            "locks",
+            "name"
+          ],
+          "methods": [
+            "checkedTarget",
+            "contains",
+            "editText",
+            "fileUrl",
+            "listDir",
+            "lstat",
+            "processPath",
+            "processPathFromHostPath",
+            "readByteRange",
+            "readBytes",
+            "readText",
+            "resolve",
+            "stat",
+            "streamText",
+            "versionAfterWrite",
+            "watch",
+            "withLock",
+            "writeText"
+          ]
+        },
+        "planMode": {
+          "ctor": "PlanModeController",
+          "fields": [
+            "ctx",
+            "name",
+            "pendingIntents",
+            "section"
+          ],
+          "methods": [
+            "get",
+            "hasOpenTurn",
+            "loggedActive",
+            "loggedActiveAtLastHeader",
+            "narration",
+            "onBoundary",
+            "planState",
+            "set"
+          ]
+        },
+        "compaction": {
+          "ctor": "BasicCompactionEngine",
+          "fields": [
+            "config",
+            "ctx",
+            "name",
+            "overflowAgents",
+            "overflowRetries",
+            "warnedPressureConfigTargets"
+          ],
+          "methods": [
+            "_registerAutomaticCompaction",
+            "compactIfNeeded",
+            "compactNow",
+            "compactRegion",
+            "regionDependencies",
+            "summarize"
+          ]
+        },
+        "toolResultPruner": {
+          "ctor": "ToolResultPruner",
+          "fields": [
+            "config",
+            "ctx",
+            "name"
+          ],
+          "methods": [
+            "measureContent",
+            "pruneContent",
+            "pruneSession"
+          ]
+        },
+        "sessionQuery": {
+          "ctor": "SqliteSessionQueryEngine",
+          "fields": [
+            "_closePromise",
+            "_closed",
+            "_corpus",
+            "_db",
+            "_globalGeneration",
+            "_instance",
+            "_lastPersistenceIdentity",
+            "_localGeneration",
+            "_observations",
+            "_optionalPersistenceFiber",
+            "_persistenceBinding",
+            "_persistenceEpoch",
+            "_readWindowMax",
+            "_ready",
+            "_tail",
+            "config",
+            "ctx",
+            "name"
+          ],
+          "methods": [
+            "_assertSearchEnabled",
+            "_close",
+            "_deleteSession",
+            "_ensureReady",
+            "_eventHit",
+            "_filterEvents",
+            "_filterSessions",
+            "_isClosed",
+            "_mainGeneration",
+            "_observeStable",
+            "_open",
+            "_queryEvents",
+            "_querySessions",
+            "_readEvent",
+            "_readWindow",
+            "_reconcile",
+            "_replaceLiveSession",
+            "_replacePersistedSession",
+            "_requireDb",
+            "_serialized",
+            "_sessionHit",
+            "_targetObservation",
+            "close",
+            "filterEvents",
+            "filterSessions",
+            "listEvents",
+            "listSessions",
+            "observeSession",
+            "readEvent",
+            "readSession",
+            "readSurface",
+            "readTitle",
+            "readTitleSnapshot",
+            "readTitleSnapshots",
+            "searchEvents",
+            "searchSessions",
+            "traceEvent",
+            "traceSession"
+          ]
+        },
+        "permissionPresets": {
+          "ctor": "PermissionPresetService",
+          "fields": [
+            "autoAdmit",
+            "ctx",
+            "defaultSettings",
+            "name",
+            "presets",
+            "typertRemote"
+          ],
+          "methods": [
+            "apply",
+            "catalog",
+            "current",
+            "derive",
+            "emitCatalogChanged",
+            "optionOf",
+            "permissionState",
+            "pinInitialPermission",
+            "registerAuto",
+            "resolve",
+            "set",
+            "specOf"
+          ]
+        },
+        "ptcRuntime": {
+          "ctor": "NodePtcRuntime",
+          "fields": [
+            "config",
+            "ctx",
+            "disposed",
+            "inMemory",
+            "isolation",
+            "language",
+            "live",
+            "name",
+            "processes"
+          ],
+          "methods": [
+            "execute",
+            "release",
+            "resolve",
+            "run"
+          ]
+        },
+        "workingDirectory": {
+          "ctor": "WorkingDirectoryService",
+          "fields": [
+            "ctx",
+            "defaultDirectory",
+            "lifecycle",
+            "name",
+            "operations",
+            "pending"
+          ],
+          "methods": [
+            "commit",
+            "contextText",
+            "directory",
+            "ensure",
+            "get",
+            "serialize",
+            "set"
+          ]
+        },
+        "otel": {
+          "ctor": "OTel",
+          "fields": [
+            "ctx",
+            "name"
+          ],
+          "methods": [
+            "createEventReporter",
+            "createSessionLogReporter"
+          ]
+        },
+        "subagents": {
+          "ctor": "SubagentRuntime",
+          "fields": [
+            "config",
+            "ctx",
+            "emitLifecycle",
+            "manager",
+            "name",
+            "providers",
+            "typertRemote"
+          ],
+          "methods": [
+            "assertCapabilities",
+            "drainChildren",
+            "drainDescendants",
+            "expectProvider",
+            "getProvider",
+            "interrupt",
+            "interruptByParent",
+            "list",
+            "listChildren",
+            "listDescendants",
+            "observeActivation",
+            "prepareContinuable",
+            "prompt",
+            "registerProvider",
+            "requireManager",
+            "resolveMaxDepth",
+            "sendMessage",
+            "startActivation",
+            "waitForChildren"
+          ]
+        },
+        "sessionTelemetry": {
+          "ctor": "OpenTelemetrySessionBackend",
+          "fields": [
+            "ctx",
+            "name",
+            "provider",
+            "sharing",
+            "shutdownTimeoutMillis"
+          ],
+          "methods": [
+            "emit",
+            "shutdown"
+          ]
+        },
+        "workflowEngine": {
+          "ctor": "PtcWorkflowEngine",
+          "fields": [
+            "config",
+            "ctx",
+            "name"
+          ],
+          "methods": [
+            "emitWorkflowEvent",
+            "start"
+          ]
+        },
+        "pluginManager": {
+          "ctor": "PluginManager",
+          "fields": [
+            "abort",
+            "configuredRegistries",
+            "ctx",
+            "githubConnectionTimeoutMs",
+            "idleTimeoutMs",
+            "inspectTimeoutMs",
+            "installedFrom",
+            "installs",
+            "lockWaitMs",
+            "managementBundles",
+            "name",
+            "outputBytes",
+            "ownerContext",
+            "ownerEntryId",
+            "packageOperations",
+            "pnpmCommand",
+            "profile",
+            "typertRemote"
+          ],
+          "methods": [
+            "bundleRows",
+            "cancelInstall",
+            "change",
+            "configure",
+            "declaredRows",
+            "diskState",
+            "inspect",
+            "installBundle",
+            "listBundles",
+            "listPlugins",
+            "listVersionExemptions",
+            "protectsManager",
+            "publishAndReload",
+            "readRestoredFiles",
+            "refreshPackages",
+            "registries",
+            "reload",
+            "removeBundle",
+            "restoreFiles",
+            "runPnpm",
+            "selectBundle",
+            "setBundleEnabled",
+            "setPluginEnabled",
+            "setVersionExemption",
+            "waitForInstall"
+          ]
+        }
+      },
+      "inactiveNames": [],
+      "interesting": {
+        "agent": {
+          "active": false
+        },
+        "agents": {
+          "active": true,
+          "impl": {
+            "ctor": "AgentRegistry",
+            "fields": [
+              "activeInitiatorRuns",
+              "ctx",
+              "factory",
+              "initiatorDisposal",
+              "initiatorDrain",
+              "initiatorRuns",
+              "initiatorState",
+              "initiators",
+              "name",
+              "store"
+            ],
+            "methods": [
+              "announce",
+              "assertInitiatorsReadable",
+              "closeInitiators",
+              "create",
+              "currentInitiator",
+              "detachEntered",
+              "disposeInitiators",
+              "emitDisposed",
+              "enter",
+              "get",
+              "hasLifecycleAncestor",
+              "isOwnedBy",
+              "list",
+              "register",
+              "releaseInitiatorRun",
+              "releaseReentrantInitiatorRuns",
+              "requireFactory",
+              "requireInitiator",
+              "resume",
+              "roots",
+              "runWithInitiator",
+              "setFactory",
+              "withInitiator",
+              "withoutInitiator"
+            ]
+          }
+        },
+        "agentLoop": {
+          "active": true,
+          "impl": {
+            "ctor": "AgentLoop",
+            "fields": [
+              "config",
+              "ctx",
+              "name",
+              "ownership",
+              "runtime"
+            ],
+            "methods": [
+              "appendUnstoredSuffix",
+              "create",
+              "createAgent",
+              "createStoredSession",
+              "initializeAgent",
+              "prepare",
+              "reportConfiguredStartupFailure",
+              "restoreOrCreateConfigured",
+              "resume",
+              "resumeWith",
+              "setupAndPublish",
+              "waitForDrainingConfiguredIdentity"
+            ]
+          }
+        },
+        "agent-loop": {
+          "active": false
+        },
+        "session": {
+          "active": false
+        },
+        "sessions": {
+          "active": true,
+          "impl": {
+            "ctor": "SessionStore",
+            "fields": [
+              "counter",
+              "ctx",
+              "name",
+              "projections",
+              "store"
+            ],
+            "methods": [
+              "_forkBoundary",
+              "_resolveForkSource",
+              "announce",
+              "create",
+              "detachEntered",
+              "emitDisposed",
+              "enter",
+              "flush",
+              "fork",
+              "get",
+              "list",
+              "liveEntryFor",
+              "prepare",
+              "registerMessageProjection"
+            ]
+          }
+        },
+        "llm": {
+          "active": true,
+          "impl": {
+            "ctor": "LlmRuntime",
+            "fields": [
+              "adapters",
+              "ctx",
+              "directory",
+              "discoveries",
+              "name",
+              "typertRemote"
+            ],
+            "methods": [
+              "adapterStream",
+              "commitRoutes",
+              "detachedModalities",
+              "discoverModels",
+              "emitAdaptersUpdated",
+              "fileReadPath",
+              "fileRequestText",
+              "forAdapter",
+              "imageRequestPricing",
+              "imageRequestTarget",
+              "listConfigurableProviders",
+              "listModels",
+              "listProviders",
+              "normalizeModelInfo",
+              "prepareCall",
+              "prepareRoutes",
+              "providerRetryPolicy",
+              "registerAdapter",
+              "registerConfigurableProviders",
+              "registerModelDiscovery",
+              "registration",
+              "remoteDiscoverModels",
+              "resolveCallConfig",
+              "resolveCallFor",
+              "resolveCallWithInfo",
+              "resolveModelInfo",
+              "resolveModelInfoFor",
+              "stream",
+              "streamWithRegistration",
+              "warnAdaptersListenerFailure"
+            ]
+          }
+        },
+        "tools": {
+          "active": true,
+          "impl": {
+            "ctor": "ToolRuntime",
+            "fields": [
+              "cancellationStates",
+              "canonicalResults",
+              "concludingExecutions",
+              "contentFinalizers",
+              "contentProjectors",
+              "ctx",
+              "defaultMode",
+              "deferredContexts",
+              "layers",
+              "maxParallelSubCalls",
+              "name",
+              "ptcContext",
+              "ptcTransport"
+            ],
+            "methods": [
+              "applyFinalContent",
+              "callerCancelled",
+              "cancellationResult",
+              "collapseSection",
+              "collapses",
+              "completeScheduledExecution",
+              "createExecution",
+              "createSuccessResult",
+              "dispatchScheduledExecution",
+              "dispatchToolBody",
+              "execute",
+              "executionMode",
+              "finalizeScheduledExecution",
+              "finishScheduledExecution",
+              "get",
+              "guard",
+              "guardReason",
+              "markCanonical",
+              "materializeFinalResult",
+              "modeFor",
+              "normalizeDispatchResult",
+              "notifyResult",
+              "postExecute",
+              "prepareExecution",
+              "prepareScheduledExecution",
+              "presentAs",
+              "register",
+              "requirePtcRuntime",
+              "requirePtcTransport",
+              "resolveExecution",
+              "restrict",
+              "schemaOf",
+              "schemas",
+              "sdkSchemas",
+              "sdkSection",
+              "serviceAsk",
+              "shapeDispatchLog",
+              "view",
+              "wireSchemas"
+            ]
+          }
+        },
+        "commands": {
+          "active": true,
+          "impl": {
+            "ctor": "CommandRuntime",
+            "fields": [
+              "commandSeq",
+              "ctx",
+              "fileReceipts",
+              "instanceToken",
+              "layers",
+              "name",
+              "typertRemote"
+            ],
+            "methods": [
+              "appendLifecycle",
+              "execute",
+              "find",
+              "list",
+              "mintCommandId",
+              "notifyChange",
+              "register",
+              "registerFileReceiptResolver",
+              "settleThrown",
+              "view"
+            ]
+          }
+        },
+        "commandFeedback": {
+          "active": false
+        },
+        "systemPrompt": {
+          "active": true,
+          "impl": {
+            "ctor": "SystemPrompt",
+            "fields": [
+              "ctx",
+              "layers",
+              "name",
+              "toolOrder"
+            ],
+            "methods": [
+              "assemble",
+              "context",
+              "getContextOrder",
+              "getSectionOrder",
+              "refreshContext",
+              "section",
+              "suppressRuntimeContext",
+              "tools",
+              "variable"
+            ]
+          }
+        },
+        "sessionPersistence": {
+          "active": true,
+          "impl": {
+            "ctor": "JsonlSessionPersistence",
+            "fields": [
+              "coldLogMemo",
+              "compression",
+              "config",
+              "ctx",
+              "generationFormat",
+              "identity",
+              "listLimit",
+              "migrationPreparations",
+              "name",
+              "root",
+              "rootEncodingCheck",
+              "tracker"
+            ],
+            "methods": [
+              "acquireLease",
+              "acquireWriteLease",
+              "appendLines",
+              "assertLogParentAllowsAbsence",
+              "assertStoredIdentity",
+              "assertUsableRoot",
+              "checkRootEncoding",
+              "create",
+              "currentHeader",
+              "decodeStoredLog",
+              "encodeEventBatch",
+              "encodeMaterialization",
+              "encodingMismatch",
+              "ensureRootEncoding",
+              "exists",
+              "findLog",
+              "findOppositeGenerationInDirectory",
+              "flush",
+              "generationFailure",
+              "hasPendingSession",
+              "historicalCorpusRevision",
+              "legacyLayout",
+              "list",
+              "listArtifacts",
+              "listGenerations",
+              "listProjectDirs",
+              "listSessionDirs",
+              "loadStoredMigration",
+              "locate",
+              "mapSessionDirectories",
+              "materialize",
+              "materializePosix",
+              "materializeWin32",
+              "memoizeStoredLog",
+              "open",
+              "oppositeCompression",
+              "persistBatch",
+              "persistHeader",
+              "prepareStoredMigration",
+              "publishStoredMigration",
+              "readFirstLine",
+              "readFirstZstdLine",
+              "readGenerationHeader",
+              "readStoredLog",
+              "readZstdPrefix",
+              "rejectExistingLog",
+              "rejectLegacyFlatArtifact",
+              "rejectOppositeArtifact",
+              "releaseHandle",
+              "repair",
+              "requireStoredLog",
+              "resolveCurrentLog",
+              "resolveGenerationInDirectory",
+              "rollbackAppend",
+              "sameFile",
+              "stat",
+              "syncDirPosix",
+              "truncateTornTail",
+              "validateSourceIdentity",
+              "waitForPreparation",
+              "writeSyncedTempFile"
+            ]
+          }
+        },
+        "sessionQuery": {
+          "active": true,
+          "impl": {
+            "ctor": "SqliteSessionQueryEngine",
+            "fields": [
+              "_closePromise",
+              "_closed",
+              "_corpus",
+              "_db",
+              "_globalGeneration",
+              "_instance",
+              "_lastPersistenceIdentity",
+              "_localGeneration",
+              "_observations",
+              "_optionalPersistenceFiber",
+              "_persistenceBinding",
+              "_persistenceEpoch",
+              "_readWindowMax",
+              "_ready",
+              "_tail",
+              "config",
+              "ctx",
+              "name"
+            ],
+            "methods": [
+              "_assertSearchEnabled",
+              "_close",
+              "_deleteSession",
+              "_ensureReady",
+              "_eventHit",
+              "_filterEvents",
+              "_filterSessions",
+              "_isClosed",
+              "_mainGeneration",
+              "_observeStable",
+              "_open",
+              "_queryEvents",
+              "_querySessions",
+              "_readEvent",
+              "_readWindow",
+              "_reconcile",
+              "_replaceLiveSession",
+              "_replacePersistedSession",
+              "_requireDb",
+              "_serialized",
+              "_sessionHit",
+              "_targetObservation",
+              "close",
+              "filterEvents",
+              "filterSessions",
+              "listEvents",
+              "listSessions",
+              "observeSession",
+              "readEvent",
+              "readSession",
+              "readSurface",
+              "readTitle",
+              "readTitleSnapshot",
+              "readTitleSnapshots",
+              "searchEvents",
+              "searchSessions",
+              "traceEvent",
+              "traceSession"
+            ]
+          }
+        },
+        "sessionProjection": {
+          "active": false
+        },
+        "storage": {
+          "active": true,
+          "impl": {
+            "ctor": "Storage",
+            "fields": [
+              "backend",
+              "ctx",
+              "forms",
+              "name"
+            ],
+            "methods": [
+              "form",
+              "mount"
+            ]
+          }
+        },
+        "storageDomain": {
+          "active": true,
+          "impl": {
+            "ctor": "DomainFacility",
+            "fields": [
+              "config",
+              "ctx",
+              "domains",
+              "reserved"
+            ],
+            "methods": [
+              "closeAll",
+              "get",
+              "open"
+            ]
+          }
+        },
+        "storageHub": {
+          "active": false
+        },
+        "attachments": {
+          "active": true,
+          "impl": {
+            "ctor": "LocalAttachmentStore",
+            "fields": [
+              "cacheRoot",
+              "compression",
+              "ctx",
+              "imageCompressionConcurrency",
+              "imageLimits",
+              "name",
+              "normalizationPolicy",
+              "requestInflight",
+              "root"
+            ],
+            "methods": [
+              "admitEncodedFile",
+              "admitPromptContent",
+              "fileHostPath",
+              "imageHostPath",
+              "isAttachmentError",
+              "readFileStream",
+              "readImage",
+              "readImageRequest",
+              "requestVersion",
+              "saveFile",
+              "saveFileStream",
+              "saveImage",
+              "saveImages",
+              "validateImage",
+              "validateImageBatch"
+            ]
+          }
+        },
+        "sessionController": {
+          "active": false
+        },
+        "modelCatalog": {
+          "active": false
+        },
+        "gateway": {
+          "active": false
+        },
+        "apiGateway": {
+          "active": false
+        },
+        "remote": {
+          "active": false
+        },
+        "profileContext": {
+          "active": true,
+          "impl": {
+            "ctor": "Object",
+            "fields": [
+              "cwd",
+              "dir",
+              "home",
+              "installAnchor",
+              "name",
+              "overlays",
+              "patchPath",
+              "startedBundles",
+              "telemetryDisabledEnv"
+            ]
+          }
+        },
+        "loader": {
+          "active": true,
+          "impl": {
+            "ctor": "Loader",
+            "fields": [
+              "builtins",
+              "config",
+              "ctx",
+              "enableLogs",
+              "envData",
+              "internal",
+              "name",
+              "root",
+              "store"
+            ],
+            "methods": [
+              "await",
+              "create",
+              "ensureId",
+              "entries",
+              "exit",
+              "getTasks",
+              "import",
+              "locate",
+              "remove",
+              "resolve",
+              "resolveGroup",
+              "showLog",
+              "unwrapExports",
+              "update",
+              "write"
+            ]
+          }
+        },
+        "logger": {
+          "active": false
+        },
+        "settings": {
+          "active": true,
+          "impl": {
+            "ctor": "SettingsForms",
+            "fields": [
+              "closed",
+              "ctx",
+              "name",
+              "ownerContext",
+              "presentations",
+              "revisions",
+              "scheduled"
+            ],
+            "methods": [
+              "configure",
+              "describe",
+              "importLegacyDocument",
+              "invalidate",
+              "mutate",
+              "prepareDocument",
+              "replace",
+              "schema",
+              "update",
+              "write"
+            ]
+          }
+        },
+        "credentials": {
+          "active": false
+        },
+        "authorization": {
+          "active": false
+        },
+        "approval": {
+          "active": true,
+          "impl": {
+            "ctor": "ApprovalService",
+            "fields": [
+              "config",
+              "ctx",
+              "name"
+            ],
+            "methods": [
+              "decide",
+              "effectivePolicy",
+              "overrideOf",
+              "request",
+              "setPolicy"
+            ]
+          }
+        },
+        "userApproval": {
+          "active": false
+        },
+        "permission": {
+          "active": false
+        },
+        "sandbox": {
+          "active": true,
+          "impl": {
+            "ctor": "LocalSandboxProvider",
+            "fields": [
+              "configuredRunnerFailureSignatures",
+              "ctx",
+              "internals",
+              "name",
+              "probeTimeoutMs",
+              "runnerCommand",
+              "selectedRunner",
+              "tempCapabilities",
+              "workspaceGrants"
+            ],
+            "methods": [
+              "chainVerdict",
+              "confine",
+              "landlockLauncher",
+              "materializeAclGrant",
+              "probeRunner",
+              "removeTempDir",
+              "revokeAclGrants",
+              "runnerArgv",
+              "seatbeltExec",
+              "selectRunner",
+              "windowsAclRunnerArgv",
+              "windowsAclRunnerInvocation"
+            ]
+          }
+        },
+        "sandboxPolicy": {
+          "active": true,
+          "impl": {
+            "ctor": "SandboxPolicyService",
+            "fields": [
+              "ctx",
+              "defaultMode",
+              "name",
+              "workspaceRoot"
+            ],
+            "methods": [
+              "overrideOf",
+              "resolve"
+            ]
+          }
+        },
+        "fs": {
+          "active": true,
+          "impl": {
+            "ctor": "SandboxedFileSystem",
+            "fields": [
+              "config",
+              "ctx",
+              "defaultMode",
+              "internals",
+              "locks",
+              "name"
+            ],
+            "methods": [
+              "checkedTarget",
+              "contains",
+              "editText",
+              "fileUrl",
+              "listDir",
+              "lstat",
+              "processPath",
+              "processPathFromHostPath",
+              "readByteRange",
+              "readBytes",
+              "readText",
+              "resolve",
+              "stat",
+              "streamText",
+              "versionAfterWrite",
+              "watch",
+              "withLock",
+              "writeText"
+            ]
+          }
+        },
+        "subprocess": {
+          "active": true,
+          "impl": {
+            "ctor": "LocalSubprocessRuntime",
+            "fields": [
+              "controlChannels",
+              "ctx",
+              "fallbackWarningIssued",
+              "internals",
+              "linuxScope",
+              "linuxScopeDecision",
+              "live",
+              "name",
+              "reportSpillFailure",
+              "terminalInspector",
+              "terminals"
+            ],
+            "methods": [
+              "disposeManagedProcesses",
+              "executableCandidates",
+              "resolveExecutable",
+              "selectContainmentMode",
+              "spawn",
+              "spawnTerminal",
+              "terminalEnvironment",
+              "terminateForHostExit",
+              "warnFallback",
+              "watchLinuxScopeStart"
+            ]
+          }
+        },
+        "jobs": {
+          "active": true,
+          "impl": {
+            "ctor": "LocalJobRegistry",
+            "fields": [
+              "ctx",
+              "hub",
+              "layers",
+              "maxConcurrentJobsPerOwner",
+              "name",
+              "ownerCleanups",
+              "pumpPollMs",
+              "retainBytes",
+              "selfCtx",
+              "settledRetainBytes",
+              "store"
+            ],
+            "methods": [
+              "activeJobCount",
+              "appendRing",
+              "assertAccess",
+              "attachController",
+              "cancelForTeardown",
+              "disposeAll",
+              "disposeOwned",
+              "drop",
+              "emit",
+              "emitOutput",
+              "ensureOwnerCleanup",
+              "expect",
+              "get",
+              "guardSource",
+              "kill",
+              "killJob",
+              "list",
+              "read",
+              "readAt",
+              "readJob",
+              "recordSessionEvent",
+              "remove",
+              "resolveOwner",
+              "servesOwner",
+              "settle",
+              "start",
+              "updateProgress",
+              "view",
+              "wait",
+              "waitJob"
+            ]
+          }
+        },
+        "timer": {
+          "active": true,
+          "impl": {
+            "ctor": "TimerService",
+            "fields": [
+              "ctx",
+              "name"
+            ],
+            "methods": [
+              "_schedule",
+              "debounce",
+              "interval",
+              "setInterval",
+              "setTimeout",
+              "throttle",
+              "timeout"
+            ]
+          }
+        },
+        "hmr": {
+          "active": false
+        },
+        "typert": {
+          "active": true,
+          "impl": {
+            "ctor": "TypertRegistry",
+            "fields": [
+              "contextStore",
+              "ctx",
+              "localStore",
+              "lookupStore",
+              "name",
+              "packages",
+              "remoteStore",
+              "resourceStore",
+              "schemas"
+            ],
+            "methods": [
+              "get",
+              "getPackage",
+              "list",
+              "listPackages",
+              "register",
+              "resolve",
+              "toJSONSchema",
+              "validatePackage",
+              "validateSchemas"
+            ]
+          }
+        },
+        "typertRegistry": {
+          "active": false
+        },
+        "spill": {
+          "active": false
+        },
+        "tokenMeter": {
+          "active": true,
+          "impl": {
+            "ctor": "TokenMeter",
+            "fields": [
+              "ctx",
+              "name",
+              "states"
+            ],
+            "methods": [
+              "_estimateProviderAssistant",
+              "_fileRequestText",
+              "_foldEvent",
+              "_routeImagePricing",
+              "_sync",
+              "estimateMessage",
+              "measure"
+            ]
+          }
+        },
+        "skills": {
+          "active": true,
+          "impl": {
+            "ctor": "SkillRegistry",
+            "fields": [
+              "collectCache",
+              "collectCacheMaxEntries",
+              "ctx",
+              "layers",
+              "name",
+              "nextProviderOrder",
+              "nextScopeId",
+              "revision",
+              "scopeIds"
+            ],
+            "methods": [
+              "collect",
+              "collectCacheKey",
+              "collectFresh",
+              "collectLayer",
+              "get",
+              "invalidateCache",
+              "invalidateEntry",
+              "list",
+              "listLayerCandidates",
+              "notifyChange",
+              "register",
+              "registerProvider",
+              "scopeId",
+              "snapshot"
+            ]
+          }
+        },
+        "web": {
+          "active": true,
+          "impl": {
+            "ctor": "WebRuntime",
+            "fields": [
+              "config",
+              "ctx",
+              "fetchProviderEnv",
+              "fetchProviders",
+              "name",
+              "searchProviderEnv",
+              "searchProviders"
+            ],
+            "methods": [
+              "fetch",
+              "registerFetchProvider",
+              "registerProvider",
+              "registerSearchProvider",
+              "search"
+            ]
+          }
+        },
+        "mcp": {
+          "active": false
+        },
+        "otel": {
+          "active": true,
+          "impl": {
+            "ctor": "OTel",
+            "fields": [
+              "ctx",
+              "name"
+            ],
+            "methods": [
+              "createEventReporter",
+              "createSessionLogReporter"
+            ]
+          }
+        }
+      },
+      "why": "steady"
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+# dsh-codex-mode: 单会话 Codex 模式（Host 插件）
+- insert:
+    - id: codex-mode
+      name: 'dsh-local-codex'
