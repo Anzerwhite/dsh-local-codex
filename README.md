@@ -4,44 +4,92 @@
 
 <h1 align="center">Local Codex Mode</h1>
 
+<p align="center"><b>Give one DeepSeek Harness session to your local Codex CLI — and watch it work inline.</b></p>
+
 <p align="center">
-  Give one DeepSeek Harness session to your local Codex CLI — and watch it work inline.
+  <a href="https://github.com/Anzerwhite/dsh-local-codex/releases"><img alt="release" src="https://img.shields.io/github/v/release/Anzerwhite/dsh-local-codex?label=release"></a>
+  <a href="./LICENSE"><img alt="license" src="https://img.shields.io/badge/license-MIT-blue"></a>
+  <img alt="DSH" src="https://img.shields.io/badge/DSH-0.2.1--rc.x-4B6BFB">
+  <img alt="Codex" src="https://img.shields.io/badge/Codex-0.170.x-111111">
+  <img alt="Host only" src="https://img.shields.io/badge/plugin-Host--only-2ea44f">
+  <a href="https://github.com/Anzerwhite/dsh-local-codex/stargazers"><img alt="stars" src="https://img.shields.io/github/stars/Anzerwhite/dsh-local-codex?style=social"></a>
 </p>
 
 <p align="center">
   <a href="./README.zh.md">中文</a> ·
-  <a href="https://github.com/Anzerwhite/dsh-local-codex/releases">Releases</a> ·
-  <a href="./LICENSE">MIT License</a> ·
-  <a href="./docs/design.md">Design</a>
+  <a href="#install">Install</a> ·
+  <a href="#quick-start">Quick start</a> ·
+  <a href="#configuration">Configuration</a> ·
+  <a href="./docs/design.md">Design</a> ·
+  <a href="./CHANGELOG.md">Changelog</a>
 </p>
 
-`dsh-local-codex` is a Host plugin for [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) (DSH) that turns **one session** into a local Codex session. Say “使用codex模式” (or run `/codex on`) and that conversation is handed to your local **Codex CLI**: replies stream into the existing chat, and every command or file change Codex performs appears as a native, collapsible tool card in the same conversation.
+`dsh-local-codex` is a Host plugin for [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) (DSH) that hands **one session** to your local **Codex CLI**. Say “使用codex模式” (or run `/codex on`) and that conversation switches to Codex: replies stream into the existing chat, and every command or file change Codex performs shows up as a native, collapsible tool card in the same conversation.
 
-Mode is **per session**: new sessions and forks start with it off, and DSH restarts resume the same Codex thread. No separate window, no copy-pasted transcript — the DSH conversation *is* the Codex conversation.
+The mode is **per session**. New sessions and forks start with it off, DSH restarts resume the same Codex thread, and one session switching to Codex never changes how the rest of your DSH workspace behaves.
 
-> Status: `0.1.0` · DSH `0.2.1-rc.x` · Codex CLI `0.170.x` · Host-only, no client plugin required
+```text
+You:   使用codex模式：跑一下单元测试，失败的话修掉
+DSH:   ✓ Codex Mode enabled for this session → codex/<your Codex model>
+Codex: I'll run the test suite first.
+       ▸ codex_activity   (pnpm test — exit code 1)
+       …
+       Fixed the failing assertion and re-ran the suite.
+```
+
+## Table of Contents
+
+- [Why Local Codex Mode](#why-local-codex-mode)
+- [Features](#features)
+- [Requirements & compatibility](#requirements--compatibility)
+- [Install](#install)
+- [Quick start](#quick-start)
+- [Trigger phrases & commands](#trigger-phrases--commands)
+- [Configuration](#configuration)
+- [How it works](#how-it-works)
+- [Permissions & security](#permissions--security)
+- [Limitations](#limitations)
+- [Troubleshooting](#troubleshooting)
+- [Roadmap](#roadmap)
+- [Development](#development)
+- [License](#license)
+
+## Why Local Codex Mode
+
+- **Use the Codex you already configured.** Same `~/.codex/config.toml`, same provider, same model, same hooks, skills and plugins — no second account and no re-login.
+- **No context copying.** The DSH session *is* the Codex conversation. You keep one timeline instead of pasting prompts between a chat window and a terminal.
+- **Native DSH experience.** Streaming replies, tool cards, approval cards, Stop, session history, persistence and new-session behavior all come from DSH itself.
+- **Scoped by design.** Only the session you enabled is affected; new sessions, forks and every other DSH session keep their normal model and tools.
+- **Nothing leaks behind.** `/codex off` restores the previous DSH model route and releases the Codex thread so native Codex can reopen it.
 
 ## Features
 
-- **One-session takeover** — a trigger word or `/codex on` hands the session to the local Codex CLI; DSH's own model and tools step aside for that session only.
-- **Inline sync** — Codex text streams through DSH's normal assistant stream; command executions, file changes, MCP calls and web searches become real `tool/call` / `tool/result` events, rendered by DSH's native collapsible tool cards.
-- **Your machine, your Codex** — the local `codex app-server` runs with your `~/.codex/config.toml`: model, provider, auth, hooks, skills and plugins are exactly what you use in Codex.
-- **Thinking effort** — the model exposes Codex reasoning tiers (`minimal` / `low` / `medium` / `high` / `xhigh`); the selected tier is forwarded per turn (`max` maps to `xhigh`).
-- **Session-scoped, persistent** — mode + Codex thread id are stored per session. Reopen the session after a DSH restart and the same Codex thread is resumed; new sessions and forks are off.
-- **DSH permission presets stay authoritative** — the session's sandbox/approval preset is mapped onto Codex's per-turn `sandboxPolicy` / `approvalPolicy`; Codex approval requests surface as DSH approval cards.
-- **Clean stop & failure handling** — Stop interrupts the current Codex turn (partial output is kept), failures show a readable error and rebuild the app-server on the next turn.
-- **No thread lock left behind** — `/codex off` unsubscribes the Codex thread and the app-server is configured to unload it immediately, so your native Codex TUI can reopen the session right away.
-- **Attachments** — composer images are passed to Codex as `localImage`; files are materialized on disk and their path is given to Codex.
-- **Zero client code** — everything renders through standard DSH session events and the existing Web UI.
-
-## Requirements
-
-| Requirement | Notes |
+| Feature | Detail |
 | --- | --- |
-| DeepSeek Harness `0.2.1-rc.x` | Web profile. The plugin is Host-only. |
-| Codex CLI `0.170.x` | Default path `/root/.npm-global/bin/codex`; override with `codexBin`. Uses `~/.codex/config.toml` (custom providers included; `codex login` is only needed if your provider requires it). |
-| `pnpm` available to the profile | DSH Plugin Manager uses it to install dependencies (`zod`). |
-| A model provider reachable by Codex | The plugin does not manage Codex credentials. |
+| Per-session takeover | A trigger word or `/codex on\|off\|status` controls one session; DSH's model and tools step aside only there. |
+| Inline streaming | Codex text streams through DSH's standard assistant stream. |
+| Native tool cards | Command executions, file changes, MCP calls and web searches become real `tool/call` + `tool/result` events rendered by DSH's collapsible tool cards. |
+| Local Codex runtime | Drives `codex app-server` with your Codex config; one Codex thread per DSH session. |
+| Thinking effort | `minimal` / `low` / `medium` / `high` / `xhigh` exposed to DSH and forwarded per turn (`max` → `xhigh`). |
+| Session persistence | Mode + Codex thread id are stored per session; DSH restarts resume the same thread. |
+| DSH-authoritative permissions | Session sandbox/approval presets are mapped onto Codex's per-turn `sandboxPolicy` / `approvalPolicy`; Codex approvals appear as DSH approval cards. |
+| Clean stop & recovery | Stop interrupts the active Codex turn and keeps partial output; failures surface an error and rebuild the app-server. |
+| Thread lease release | `/codex off` unsubscribes the Codex thread, and the app-server unloads it immediately so native Codex can reopen the session. |
+| Attachments | Composer images become `localImage` inputs; files are materialized on disk and their path is passed to Codex. |
+| Zero client code | Everything renders through standard DSH session events and the existing Web UI. |
+
+## Requirements & compatibility
+
+| Component | Version / requirement |
+| --- | --- |
+| DeepSeek Harness | `0.2.1-rc.x`, Web profile (Host-only plugin; no client bundle) |
+| Codex CLI | `0.170.x` — default path `/root/.npm-global/bin/codex`, override with `codexBin` |
+| Codex configuration | `~/.codex/config.toml` (custom providers supported; `codex login` only if your provider needs it) |
+| Package manager | `pnpm` available to the profile (used by DSH Plugin Manager to install `zod`) |
+| Model access | A provider reachable by your Codex installation; the plugin does not manage Codex credentials |
+| Platform | Wherever DSH and Codex CLI run; the default `codexBin` is a Linux path, so set `codexBin` explicitly on other platforms |
+
+> `codex app-server` is an experimental Codex surface. This release pins the Codex CLI **0.170.x** protocol baseline and tolerates unknown notifications; upgrading Codex may require a compatibility pass.
 
 ## Install
 
@@ -51,7 +99,7 @@ Mode is **per session**: new sessions and forks start with it off, and DSH resta
 dsh plugin --profile web add https://github.com/Anzerwhite/dsh-local-codex/releases/download/v0.1.0/dsh-local-codex-0.1.0.tgz
 ```
 
-The same tarball is what the DSH plugin market serves once the catalog entry is merged.
+This is the same prebuilt tarball the DSH plugin market serves. The marketplace catalog listing is in review; until it is merged, use this command or search the repo name in **Plugins → Discover** once available.
 
 ### From npm (after the npm release)
 
@@ -67,41 +115,38 @@ cd dsh-local-codex
 dsh plugin --profile web add -w "$PWD"
 ```
 
-After changing source files, toggle the bundle off/on in DSH's Plugin Manager (or restart `dsh web`) to load the new module generation.
+After changing source files, toggle the bundle off/on in **Plugins** (or restart `dsh web`) to load the new module generation.
 
-## Usage
+### Uninstall
 
-Open any session (the model picker still shows your usual DSH model), then:
-
-| What you send | What happens |
-| --- | --- |
-| `使用codex模式` | Enables Codex mode for this session; a control receipt is recorded and the trigger itself is not sent to the model. |
-| `使用codex模式：帮我修复这个测试` | Enables mode and sends “帮我修复这个测试” as the first Codex turn. |
-| `/codex on` · `/codex off` · `/codex status` | Explicit control commands (no model message). `/codex status` reports model, thinking effort and Codex thread id. |
-| `退出codex模式` | Disables mode, restores the previous DSH model route and releases the Codex thread lease. |
-
-Trigger phrases (sentence-initial, case-insensitive):
-
-- Enable: `使用codex模式`, `开启codex模式`, `进入codex模式`, `切换到codex模式`, `use codex mode`, `enable codex mode`, `enter codex mode`, `codex mode on`
-- Disable: `退出codex模式`, `关闭codex模式`, `结束codex模式`, `exit codex mode`, `disable codex mode`, `codex mode off`
-
-While mode is on, that session's model is `codex/<model from your Codex config>`; the DSH model selector reflects it. New sessions default to normal DSH models.
-
-### Example
-
-```text
-You:  使用codex模式：跑一下单元测试，失败的话修掉
-DSH:  [Codex Mode enabled]  → codex/<your Codex model>
-You:  … (everything from here is handled by local Codex)
-Codex: I’ll run the test suite first.
-       ▸ codex_activity  (command: pnpm test — exit code 1)
-       …
-       Fixed the failing assertion and re-ran the suite.
+```sh
+dsh plugin --profile web remove dsh-local-codex
 ```
+
+Removing the plugin keeps each session's saved mode record (harmless) and releases Codex threads it held.
+
+## Quick start
+
+1. Install the plugin and restart or reload the DSH profile.
+2. Open a session — the model picker still shows your usual DSH model.
+3. Send `使用codex模式` (or `/codex on`), then talk to Codex as usual.
+
+## Trigger phrases & commands
+
+Sentence-initial, case-insensitive. The trigger itself never enters the model transcript.
+
+| Action | What to send |
+| --- | --- |
+| Enable (no content) | `使用codex模式` / `开启codex模式` / `进入codex模式` / `切换到codex模式` / `use codex mode` / `enable codex mode` / `enter codex mode` / `codex mode on` |
+| Enable and run content | `使用codex模式：帮我修复这个测试` — enables mode and sends “帮我修复这个测试” as the first Codex turn |
+| Disable | `退出codex模式` / `关闭codex模式` / `结束codex模式` / `exit codex mode` / `disable codex mode` / `codex mode off` |
+| Explicit control | `/codex on` · `/codex off` · `/codex status` |
+
+While mode is on, the session's model shows as `codex/<your Codex model>`; `/codex status` reports the model, thinking effort and Codex thread id.
 
 ## Configuration
 
-Configuration is optional; the defaults are designed for a typical local Codex installation. Add a `config` block to the plugin row in your profile patch (`cordis.patch.yml`) if you need to change them:
+Configuration is optional; defaults target a standard local Codex install. Add a `config` block to the plugin row in your profile patch (`cordis.patch.yml`) to override them:
 
 ```yaml
 - id: codex-mode
@@ -118,8 +163,8 @@ Configuration is optional; the defaults are designed for a typical local Codex i
 | `cwd` | session working directory | Override the Codex thread working directory. |
 | `requestTimeoutMs` | `60000` | app-server request timeout. |
 | `bootstrapLimitChars` | `24000` | Character budget of the history digest injected once when the Codex thread is created. |
-| `reasoningEffort` | `model_reasoning_effort` in Codex config | Default thinking effort. |
-| `reasoningSummary` | Codex config | Per-turn `summary` override (`auto` / `concise` / `detailed` / `none`). |
+| `reasoningEffort` | Codex config `model_reasoning_effort` | Default thinking effort. |
+| `reasoningSummary` | Codex config | Per-turn summary override (`auto` / `concise` / `detailed` / `none`). |
 | `codexEfforts` | five built-in tiers | Thinking tiers exposed to DSH. |
 | `maxBridgeCallsPerTurn` | `200` | Safety budget for bridged Codex actions in one user turn. |
 | `defaultSandbox` / `defaultApproval` | `danger-full-access` / `never` | Fallback when the DSH permission preset cannot be read. |
@@ -138,40 +183,50 @@ flowchart LR
   BRIDGE -.->|tool/call + tool/result| LOOP
 ```
 
-A plugin-registered **LLM provider adapter** drives `codex app-server`, one Codex thread per DSH session. Text and reasoning flow through standard stream chunks; tool activity is bridged into real session events so the existing chat UI renders it natively. The mode controller owns the session state, model routing and permission mapping. No DSH core changes and no custom client bundle are involved.
+The plugin registers an **LLM provider adapter** that drives `codex app-server` — one Codex thread per DSH session. Assistant text and reasoning travel through standard stream chunks; tool activity is bridged into real session events so the existing chat UI renders it natively. A mode controller owns session state, model routing and permission mapping. No DSH core changes, no custom client bundle.
 
-Deeper material: [design](docs/design.md) · [architecture decisions](docs/adr/) · [implementation contract](docs/impl-contract.md) · [verification log](docs/verification.md).
+| Fact | Value |
+| --- | --- |
+| npm package | `dsh-local-codex` |
+| Bundle row id | `codex-mode` |
+| LLM provider route | `codex` |
+| Display-only tool | `codex_activity` |
+| Client bundle | none (Host-only) |
+
+Further reading: [design](docs/design.md) · [architecture decisions](docs/adr/) · [implementation contract](docs/impl-contract.md) · [verification log](docs/verification.md).
 
 ## Permissions & security
 
-- **DSH preset is authoritative.** Each Codex turn receives the sandbox/approval mapped from the DSH session's permission preset (`read-only` / `workspace-write` / `danger-full-access`). If your default preset is `danger-full-access`, Codex commands run with full local access — switch the session preset first if you want tighter limits.
+- **DSH preset is authoritative.** Each Codex turn receives sandbox/approval mapped from the DSH session's permission preset (`read-only` / `workspace-write` / `danger-full-access`). With the `danger-full-access` preset, Codex commands run with full local access — choose a stricter preset first if that is not what you want.
 - **Approvals** raised by Codex become DSH approval cards; declining or cancelling ends that Codex action.
-- **Thread lease**: while mode is on, DSH holds the Codex thread; native Codex will report the session as busy. `/codex off`, agent disposal or plugin unload releases it.
-- **Privacy**: conversation content is sent to whichever model provider your Codex config names — same trust boundary as running Codex directly.
-- The plugin registers exactly one display-only tool (`codex_activity`); it never re-runs Codex commands and adds no other tool surface.
+- **Thread lease.** While mode is on, DSH holds the Codex thread and native Codex reports the session as busy. `/codex off`, agent disposal or plugin unload release it.
+- **Privacy.** Conversation content is sent to the model provider named in your Codex configuration — the same trust boundary as running Codex directly.
+- **Minimal surface.** The plugin registers exactly one display-only tool (`codex_activity`), never re-runs Codex commands, and adds no network endpoints.
+- **Secrets.** DSH approval and permission settings are respected; the plugin never reads your Codex auth files.
 
-## Compatibility & limitations
+## Limitations
 
-- `codex app-server` is experimental in Codex; this release is pinned to the **Codex CLI 0.170.x** protocol and tolerates unknown notifications. Upgrading Codex may require a compatibility pass.
 - The first turn of a resumed Codex thread can take 5–30 s (Codex hooks/skills load); there is no progress indicator yet.
-- Reasoning *text* is provider-dependent: some providers return only reasoning token counts. The thinking **tier** is still visible and selectable.
-- Attachments (images/files) are implemented but not yet heavily battle-tested; extremely large tool output is capped by DSH's spill policy.
+- Reasoning *text* is provider-dependent: some providers return only reasoning token counts. The thinking tier is still visible and selectable.
+- Attachments are implemented but not yet heavily battle-tested; very large tool output is capped by DSH's spill policy.
 - If another plugin also spawns `codex app-server` (for example a remote-workspace plugin), prefer running one at a time to avoid thread-writer contention.
+- Generic DSH tool cards are used for Codex actions; native terminal/diff cards are on the roadmap.
 
 ## Troubleshooting
 
 | Symptom | Fix |
 | --- | --- |
-| `/codex status` says thread “(not created yet)” after enabling | Normal before the first Codex turn; the thread is created on the next message. |
-| Native Codex says the session is locked | Codex mode still holds the thread: run `/codex off` first. |
-| First reply after enabling is slow | Codex thread creation/resume plus hooks can take seconds; subsequent turns are fast. |
-| Model picker does not show codex model | Check the plugin is active (`Plugins → Installed`) and `codex --version` works for the configured `codexBin`. |
-| Typing the trigger does nothing | The phrase must be at the start of the message; use `/codex on` as a fallback. |
+| `/codex status` shows thread “(not created yet)” right after enabling | Normal — the thread is created on the next message. |
+| Native Codex says the session is locked | Codex mode still holds the thread; run `/codex off` first. |
+| First reply after enabling is slow | Thread creation/resume plus Codex hooks can take seconds; later turns are fast. |
+| Model picker does not show the codex model | Confirm the plugin is active under **Plugins → Installed** and that `codexBin` points to a working Codex CLI. |
+| A trigger phrase does nothing | It must start the message; use `/codex on` as a fallback. |
+| Plugin fails to activate | The profile needs `pnpm` for dependency installation; check DSH logs for the failing row. |
 
 ## Roadmap
 
 - npm publication and marketplace catalog listing.
-- Optional native terminal / diff card rendering for Codex actions (currently DSH's generic tool cards).
+- Optional native terminal / diff card rendering for Codex actions.
 - End-to-end coverage for attachments and Codex approval round-trips.
 - Progress indicator while a Codex thread is resumed.
 
@@ -182,8 +237,12 @@ node test/scenarios.mjs            # headless end-to-end scenarios (S1–S3)
 node test/run-headless.mjs --help  # one-shot headless runner with assertions
 ```
 
-Read [docs/impl-contract.md](docs/impl-contract.md) before changing module boundaries. Test/development helpers live under `test/` and `dev/`; the implementation modules under `src/` have no build step (plain ESM JavaScript).
+Read [docs/impl-contract.md](docs/impl-contract.md) before changing module boundaries. `src/` is plain ESM JavaScript with no build step.
 
 ## License
 
 [MIT](./LICENSE)
+
+---
+
+<sub>Not affiliated with OpenAI or DeepSeek. Codex is a CLI from OpenAI; DeepSeek Harness is a separate project. This plugin only connects the two locally.</sub>
