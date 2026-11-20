@@ -99,6 +99,12 @@ dsh plugin --profile web add -w /workspace/dsh_ifself
 | `defaultSandbox` / `defaultApproval` | `danger-full-access` / `never` | 读不到 DSH 权限预设时的回退 |
 | `attachmentsDir` | 系统临时目录 | 附件物化目录 |
 
+## 插件市场
+
+- 市场包名：`dsh-local-codex`；发布与收录步骤见 [publish/PUBLISHING.md](./publish/PUBLISHING.md)。
+- 目标目录是社区目录 [awesome-dsh-plugin](https://github.com/awesome-dsh-plugin/awesome-dsh-plugin)（dshmarket 与宿主 Discover 读取的同一份清单），收录需要 npm/GitHub 凭据与仓库创建满 1 天。
+- 未上架前可先用 `dsh plugin --profile web add -w /workspace/dsh_ifself`（本机当前即此方式）或安装 `dist/dsh-local-codex-0.1.0.tgz`。
+
 ## 已知限制
 
 - `codex app-server` 在 Codex 中是 experimental；本项目以 **codex-cli 0.170.0** 为兼容基线，升级 Codex 后可能需要对协议做回归。
