@@ -4,3 +4,9 @@ scratch/
 /tmp/
 *.tgz
 .DS_Store
+
+# secrets / local credentials
+.config
+.env
+.env.*
+*.token
