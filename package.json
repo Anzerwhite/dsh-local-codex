@@ -45,10 +45,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/PLACEHOLDER/dsh-local-codex.git"
+    "url": "git+https://github.com/Anzerwhite/dsh-local-codex.git"
   },
-  "homepage": "https://github.com/PLACEHOLDER/dsh-local-codex#readme",
+  "homepage": "https://github.com/Anzerwhite/dsh-local-codex#readme",
   "bugs": {
-    "url": "https://github.com/PLACEHOLDER/dsh-local-codex/issues"
+    "url": "https://github.com/Anzerwhite/dsh-local-codex/issues"
   }
 }
