@@ -1,0 +1,41 @@
+name: Release
+
+# Publishes dsh-local-codex to npm and attaches the packed tarball to a GitHub
+# Release. Create a GitHub repository, push this repo, add a repository secret
+# NPM_TOKEN (npm automation token with publish rights), then push a tag:
+#
+#   git tag v0.1.0 && git push origin main --tags
+#
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+
+      - name: Pack
+        run: npm pack
+
+      - name: Publish to npm
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --access public
+
+      - name: Attach tarball to the release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dsh-local-codex-*.tgz
+          generate_release_notes: true

@@ -17,7 +17,13 @@
   7. 建议发布 npm（安装免构建）；也可以只发 GitHub Release tarball（条目里加 `tarball:`）。
 - 合并后 CI 重新生成 README 并发布 `dsh-plugin-catalog`（jsDelivr 上的 format-1 索引），市场随后刷新目录。
 
-## 步骤 A：npm 发布（推荐）
+## 步骤 A：npm 发布（两种方式）
+
+**A1（推荐，不共享令牌）：用 GitHub Actions**
+仓库里已带 `.github/workflows/release.yml`：在 GitHub 仓库设置里添加 secret `NPM_TOKEN`（npm automation token），然后 `git tag v0.1.0 && git push origin main --tags`。
+CI 会执行 `npm pack` → `npm publish --access public`，并把 `.tgz` 附到 GitHub Release。
+
+**A2：本地发布（需要把 npm token 交给执行者）**
 
 ```sh
 cd /workspace/dsh_ifself
