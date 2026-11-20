@@ -1,6 +1,8 @@
 # dsh-local-codex
 
-> npm 包名：`dsh-local-codex` · 插件行 id：`codex-mode` · 仓库工作名：dsh-codex-mode
+> npm 包名：`dsh-local-codex` · 插件行 id：`codex-mode` · 仓库：[Anzerwhite/dsh-local-codex](https://github.com/Anzerwhite/dsh-local-codex)
+>
+> 发布状态：GitHub 仓库与 Release 预构建包已上线；npm 发布等待配置 `NPM_TOKEN`；市场目录条目已准备，待仓库创建满 1 天后提交 PR。
 >
 > 把 DeepSeek Harness 的**单个会话**交给本机 Codex 代理：你在 DSH 里正常聊天，Codex 自己推理、执行命令、改动文件，而它的回复（流式）、命令执行与文件改动会同步显示在同一个对话流里（工具活动渲染为 DSH 原生的可折叠工具卡片）。
 
@@ -60,13 +62,22 @@ codex app-server（单子进程，多线程复用）
 - 本机 Codex CLI 0.170.x（默认 `/root/.npm-global/bin/codex`，可用配置 `codexBin` 覆盖）；认证沿用 `~/.codex/config.toml`。
 - profile 环境能执行 `pnpm`（Plugin Manager 安装依赖时使用）。
 
-安装（发布到 npm 之后；本机开发期用本地目录）：
+安装（当前可用：GitHub Release 预构建包，与市场使用的安装源相同）：
+
+```sh
+dsh plugin --profile web add https://github.com/Anzerwhite/dsh-local-codex/releases/download/v0.1.0/dsh-local-codex-0.1.0.tgz
+```
+
+npm 版本发布后（需要仓库 secret `NPM_TOKEN`）：
 
 ```sh
 dsh plugin --profile web add dsh-local-codex
-# 本地开发目录：
+```
+
+本地开发目录安装（改代码即时生效）：
+
+```sh
 dsh plugin --profile web add -w /workspace/dsh_ifself
-# 或通过 plugin_manager 工具 install_bundle，target=/workspace/dsh_ifself
 ```
 
 **修改本插件代码后的加载**：在 DSH 的 Plugin Manager（或 plugin_manager 工具）里把本 bundle 关闭再开启，即可加载最新模块；配置文件/行外配置的变更走 profile reload。若修改后行为未变化，再关闭/开启一次。
@@ -104,7 +115,8 @@ dsh plugin --profile web add -w /workspace/dsh_ifself
 - 市场包名：`dsh-local-codex`；发布与收录步骤见 [publish/PUBLISHING.md](./publish/PUBLISHING.md)。
 - 本仓库带 `.github/workflows/release.yml`：推 `v*` tag 即由 GitHub Actions 自动 `npm publish` 并附 tarball，无需在本地保存令牌。
 - 目标目录是社区目录 [awesome-dsh-plugin](https://github.com/awesome-dsh-plugin/awesome-dsh-plugin)（dshmarket 与宿主 Discover 读取的同一份清单），收录需要 GitHub 仓库创建满 1 天 + 目录 PR。
-- 未上架前可先用 `dsh plugin --profile web add -w /workspace/dsh_ifself`（本机当前即此方式）或安装 `dist/dsh-local-codex-0.1.0.tgz`。
+- 已上线：GitHub 仓库 + `v0.1.0` Release 预构建 tarball；本机 live 插件已从该 Release 安装。
+- 待办：npm 发布（配 `NPM_TOKEN` secret 后重新发版即可自动完成）；仓库满 1 天后提交目录 PR。
 
 ## 已知限制
 
