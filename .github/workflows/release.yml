@@ -26,6 +26,13 @@ jobs:
           node-version: 22
           registry-url: https://registry.npmjs.org
 
+      - name: Guard repository metadata
+        run: |
+          if grep -q 'PLACEHOLDER' package.json package.json publish/*.yml README.md 2>/dev/null; then
+            echo "::error::Run publish/set-repo.sh <owner> <repo> before tagging a release."
+            exit 1
+          fi
+
       - name: Pack
         run: npm pack
 
