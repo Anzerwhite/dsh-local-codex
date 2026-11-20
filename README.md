@@ -1,130 +1,189 @@
-# dsh-local-codex
+<p align="center">
+  <img src="icon.svg" width="96" alt="Local Codex Mode icon">
+</p>
 
-> npm 包名：`dsh-local-codex` · 插件行 id：`codex-mode` · 仓库：[Anzerwhite/dsh-local-codex](https://github.com/Anzerwhite/dsh-local-codex)
->
-> 发布状态：GitHub 仓库与 Release 预构建包已上线；npm 发布等待配置 `NPM_TOKEN`；市场目录条目已准备，待仓库创建满 1 天后提交 PR。
->
-> 把 DeepSeek Harness 的**单个会话**交给本机 Codex 代理：你在 DSH 里正常聊天，Codex 自己推理、执行命令、改动文件，而它的回复（流式）、命令执行与文件改动会同步显示在同一个对话流里（工具活动渲染为 DSH 原生的可折叠工具卡片）。
+<h1 align="center">Local Codex Mode</h1>
 
-模式只对**指定会话**生效，新会话自动关闭；DSH 重启后重新打开同一会话会续接同一个 Codex 线程。
+<p align="center">
+  Give one DeepSeek Harness session to your local Codex CLI — and watch it work inline.
+</p>
 
-- 设计文档：[docs/design.md](./docs/design.md)
-- 领域词表：[CONTEXT.md](./CONTEXT.md)
-- 架构决策：[docs/adr/](./docs/adr/)
-- 实现契约与并行开发说明：[docs/impl-contract.md](./docs/impl-contract.md)
-- 验收记录：[docs/verification.md](./docs/verification.md)
+<p align="center">
+  <a href="./README.zh.md">中文</a> ·
+  <a href="https://github.com/Anzerwhite/dsh-local-codex/releases">Releases</a> ·
+  <a href="./LICENSE">MIT License</a> ·
+  <a href="./docs/design.md">Design</a>
+</p>
 
-## 当前状态
+`dsh-local-codex` is a Host plugin for [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) (DSH) that turns **one session** into a local Codex session. Say “使用codex模式” (or run `/codex on`) and that conversation is handed to your local **Codex CLI**: replies stream into the existing chat, and every command or file change Codex performs appears as a native, collapsible tool card in the same conversation.
 
-已在 **本机** DSH Web profile（`dsh` 0.2.1-rc.5，`http://127.0.0.1:3080`）安装并运行：profile 以 `link:/workspace/dsh_ifself` 依赖本仓库，bundle 行 `codex-mode` 由 [cordis.patch.yml](./cordis.patch.yml) 插入。
+Mode is **per session**: new sessions and forks start with it off, and DSH restarts resume the same Codex thread. No separate window, no copy-pasted transcript — the DSH conversation *is* the Codex conversation.
 
-Headless 端到端场景 **S1/S2/S3 全部通过**（触发词接管、工具卡片真实结果、续接/新会话隔离），Web GUI 手动验收通过（含思考强度切换）。
+> Status: `0.1.0` · DSH `0.2.1-rc.x` · Codex CLI `0.170.x` · Host-only, no client plugin required
 
-## 使用
+## Features
 
-1. 新建或打开一个会话（默认仍是 DeepSeek 模型）。
-2. 在消息里说一句触发词，或使用斜杠命令：
+- **One-session takeover** — a trigger word or `/codex on` hands the session to the local Codex CLI; DSH's own model and tools step aside for that session only.
+- **Inline sync** — Codex text streams through DSH's normal assistant stream; command executions, file changes, MCP calls and web searches become real `tool/call` / `tool/result` events, rendered by DSH's native collapsible tool cards.
+- **Your machine, your Codex** — the local `codex app-server` runs with your `~/.codex/config.toml`: model, provider, auth, hooks, skills and plugins are exactly what you use in Codex.
+- **Thinking effort** — the model exposes Codex reasoning tiers (`minimal` / `low` / `medium` / `high` / `xhigh`); the selected tier is forwarded per turn (`max` maps to `xhigh`).
+- **Session-scoped, persistent** — mode + Codex thread id are stored per session. Reopen the session after a DSH restart and the same Codex thread is resumed; new sessions and forks are off.
+- **DSH permission presets stay authoritative** — the session's sandbox/approval preset is mapped onto Codex's per-turn `sandboxPolicy` / `approvalPolicy`; Codex approval requests surface as DSH approval cards.
+- **Clean stop & failure handling** — Stop interrupts the current Codex turn (partial output is kept), failures show a readable error and rebuild the app-server on the next turn.
+- **No thread lock left behind** — `/codex off` unsubscribes the Codex thread and the app-server is configured to unload it immediately, so your native Codex TUI can reopen the session right away.
+- **Attachments** — composer images are passed to Codex as `localImage`; files are materialized on disk and their path is given to Codex.
+- **Zero client code** — everything renders through standard DSH session events and the existing Web UI.
 
-   使用codex模式                     只开启模式
-   使用codex模式：帮我修复这个测试     开启，并把“帮我修复这个测试”作为第一轮发给 Codex
-   /codex on | off | status           开启 / 关闭 / 查看状态
-   退出codex模式                      关闭模式（恢复原 DSH 模型）
+## Requirements
 
-   同时也接受 `开启codex模式`、`进入codex模式`、`切换到codex模式`、`use codex mode`、`enable codex mode`、`enter codex mode`、`codex mode on`；关闭词：`退出/关闭/结束codex模式`、`exit/disable codex mode`、`codex mode off`。
-3. 开启后该会话的模型变为 `codex/gpt-6.2-sol`（模型参数沿用 `~/.codex/config.toml`），此后每条消息都交给本机 Codex；它的命令/文件动作以工具卡片出现。
-4. 思考强度（thinking effort）：Codex 模型会声明可用档位 `minimal / low / medium / high / xhigh`（默认取 `~/.codex/config.toml` 的 `model_reasoning_effort`），在模型菜单里可切换，每轮都会传给 Codex；DSH 的 `max` 档映射为 `xhigh`。`/codex status` 会显示当前实际档位。
-5. 关闭模式后模型恢复成进入前的 DSH 路由。退出时会对 Codex 执行 `thread/unsubscribe`，配合 app-server 的 `thread_unload_delay_secs=0`，**释放该线程的 writer 占用**，让原生 Codex TUI 可以立即打开这个会话；Codex 线程 ID 保留，下次开启继续同一线程（不重复注入前情提要）。
-   - 模式开启期间该线程由 DSH 持有，原生 Codex 打开它仍会显示占用——这是预期行为；先 `/codex off` 再开即可。
-6. 新会话与 fork 出来的会话默认关闭。模式状态是 per-session 的（存 `storageDomain`），没有全局开关。
+| Requirement | Notes |
+| --- | --- |
+| DeepSeek Harness `0.2.1-rc.x` | Web profile. The plugin is Host-only. |
+| Codex CLI `0.170.x` | Default path `/root/.npm-global/bin/codex`; override with `codexBin`. Uses `~/.codex/config.toml` (custom providers included; `codex login` is only needed if your provider requires it). |
+| `pnpm` available to the profile | DSH Plugin Manager uses it to install dependencies (`zod`). |
+| A model provider reachable by Codex | The plugin does not manage Codex credentials. |
 
-## 工作原理（一图流）
+## Install
 
-```text
-DSH Web UI（现有 Chat，无改动）
-   │ 标准会话事件 / 标准 API
-DSH agent-loop（现有：pre-step → agent/request 路由 → llm.stream → 派发工具 → 落盘）
-   │ StreamChunk / GenerateOptions
-dsh-codex-mode Host 插件
-   ├─ mode controller：触发词/命令、模式持久化、模型选择切换、权限映射、附件物化
-   ├─ codex adapter：一个 DSH 会话 ↔ 一个 Codex thread；正文/推理流式 chunk；命令/文件 → 合成 tool-call
-   └─ bridge tool（codex_activity）：把 Codex 动作落成真实 tool/call+tool/result，复用原生工具卡片
-   │ stdio JSON-RPC
-codex app-server（单子进程，多线程复用）
-```
-
-关键决策见 ADR：用 LLM provider adapter 承载 Codex（0001）、Codex 活动走原生会话事件（0002）、`codex app-server` 传输（0003）、权限以 DSH 会话预设为准（0004）、按会话持久化并续接线程（0005）。
-
-## 安装 / 更新
-
-前置：
-
-- DeepSeek Harness 0.2.1-rc.x（Web profile）。
-- 本机 Codex CLI 0.170.x（默认 `/root/.npm-global/bin/codex`，可用配置 `codexBin` 覆盖）；认证沿用 `~/.codex/config.toml`。
-- profile 环境能执行 `pnpm`（Plugin Manager 安装依赖时使用）。
-
-安装（当前可用：GitHub Release 预构建包，与市场使用的安装源相同）：
+### From the plugin market / prebuilt release tarball
 
 ```sh
 dsh plugin --profile web add https://github.com/Anzerwhite/dsh-local-codex/releases/download/v0.1.0/dsh-local-codex-0.1.0.tgz
 ```
 
-npm 版本发布后（需要仓库 secret `NPM_TOKEN`）：
+The same tarball is what the DSH plugin market serves once the catalog entry is merged.
+
+### From npm (after the npm release)
 
 ```sh
 dsh plugin --profile web add dsh-local-codex
 ```
 
-本地开发目录安装（改代码即时生效）：
+### From source (development)
 
 ```sh
-dsh plugin --profile web add -w /workspace/dsh_ifself
+git clone https://github.com/Anzerwhite/dsh-local-codex.git
+cd dsh-local-codex
+dsh plugin --profile web add -w "$PWD"
 ```
 
-**修改本插件代码后的加载**：在 DSH 的 Plugin Manager（或 plugin_manager 工具）里把本 bundle 关闭再开启，即可加载最新模块；配置文件/行外配置的变更走 profile reload。若修改后行为未变化，再关闭/开启一次。
+After changing source files, toggle the bundle off/on in DSH's Plugin Manager (or restart `dsh web`) to load the new module generation.
 
-## 配置
+## Usage
 
-可在 `cordis.patch.yml` 的插入行写 `config`（DSH 会把未声明 `Config` schema 的插件行配置原样传入）：
+Open any session (the model picker still shows your usual DSH model), then:
+
+| What you send | What happens |
+| --- | --- |
+| `使用codex模式` | Enables Codex mode for this session; a control receipt is recorded and the trigger itself is not sent to the model. |
+| `使用codex模式：帮我修复这个测试` | Enables mode and sends “帮我修复这个测试” as the first Codex turn. |
+| `/codex on` · `/codex off` · `/codex status` | Explicit control commands (no model message). `/codex status` reports model, thinking effort and Codex thread id. |
+| `退出codex模式` | Disables mode, restores the previous DSH model route and releases the Codex thread lease. |
+
+Trigger phrases (sentence-initial, case-insensitive):
+
+- Enable: `使用codex模式`, `开启codex模式`, `进入codex模式`, `切换到codex模式`, `use codex mode`, `enable codex mode`, `enter codex mode`, `codex mode on`
+- Disable: `退出codex模式`, `关闭codex模式`, `结束codex模式`, `exit codex mode`, `disable codex mode`, `codex mode off`
+
+While mode is on, that session's model is `codex/<model from your Codex config>`; the DSH model selector reflects it. New sessions default to normal DSH models.
+
+### Example
+
+```text
+You:  使用codex模式：跑一下单元测试，失败的话修掉
+DSH:  [Codex Mode enabled]  → codex/<your Codex model>
+You:  … (everything from here is handled by local Codex)
+Codex: I’ll run the test suite first.
+       ▸ codex_activity  (command: pnpm test — exit code 1)
+       …
+       Fixed the failing assertion and re-ran the suite.
+```
+
+## Configuration
+
+Configuration is optional; the defaults are designed for a typical local Codex installation. Add a `config` block to the plugin row in your profile patch (`cordis.patch.yml`) if you need to change them:
 
 ```yaml
-- insert:
-    - id: codex-mode
-      name: '@local/dsh-codex-mode'
-      config:
-        model: gpt-6.2-sol
-        reasoningEffort: xhigh
+- id: codex-mode
+  config:
+    codexBin: /root/.npm-global/bin/codex
+    reasoningEffort: xhigh
 ```
 
-| 键 | 默认 | 说明 |
-|---|---|---|
-| `codexBin` | `/root/.npm-global/bin/codex` | Codex 可执行文件 |
-| `providerName` | `codex` | 注册的 LLM provider 路由名 |
-| `model` | 读 `~/.codex/config.toml` 的 `model` | 暴露给模型选择器的模型 id |
-| `cwd` | 会话工作目录 | 覆盖 Codex 线程工作目录（一般不需要） |
-| `requestTimeoutMs` | `60000` | app-server 单请求超时 |
-| `bootstrapLimitChars` | `24000` | 开启时注入的“前情提要”字符预算 |
-| `reasoningEffort` | 读 Codex 配置 `model_reasoning_effort` | 默认思考强度 |
-| `reasoningSummary` | 读 Codex 配置 | 逐轮 `turn/start.summary` 覆盖（`auto/concise/detailed/none`） |
-| `codexEfforts` | 内置 5 档 | 暴露给 DSH 的思考档位列表 |
-| `maxBridgeCallsPerTurn` | `200` | 单用户轮内桥接动作预算（防无限循环） |
-| `defaultSandbox` / `defaultApproval` | `danger-full-access` / `never` | 读不到 DSH 权限预设时的回退 |
-| `attachmentsDir` | 系统临时目录 | 附件物化目录 |
+| Key | Default | Meaning |
+| --- | --- | --- |
+| `codexBin` | `/root/.npm-global/bin/codex` | Codex CLI executable. |
+| `providerName` | `codex` | LLM provider route registered with DSH. |
+| `model` | `model` in `~/.codex/config.toml` | Model id exposed to the DSH picker. |
+| `cwd` | session working directory | Override the Codex thread working directory. |
+| `requestTimeoutMs` | `60000` | app-server request timeout. |
+| `bootstrapLimitChars` | `24000` | Character budget of the history digest injected once when the Codex thread is created. |
+| `reasoningEffort` | `model_reasoning_effort` in Codex config | Default thinking effort. |
+| `reasoningSummary` | Codex config | Per-turn `summary` override (`auto` / `concise` / `detailed` / `none`). |
+| `codexEfforts` | five built-in tiers | Thinking tiers exposed to DSH. |
+| `maxBridgeCallsPerTurn` | `200` | Safety budget for bridged Codex actions in one user turn. |
+| `defaultSandbox` / `defaultApproval` | `danger-full-access` / `never` | Fallback when the DSH permission preset cannot be read. |
+| `attachmentsDir` | system temp dir | Where image/file attachments are materialized. |
 
-## 插件市场
+## How it works
 
-- 市场包名：`dsh-local-codex`；发布与收录步骤见 [publish/PUBLISHING.md](./publish/PUBLISHING.md)。
-- 本仓库带 `.github/workflows/release.yml`：推 `v*` tag 即由 GitHub Actions 自动 `npm publish` 并附 tarball，无需在本地保存令牌。
-- 目标目录是社区目录 [awesome-dsh-plugin](https://github.com/awesome-dsh-plugin/awesome-dsh-plugin)（dshmarket 与宿主 Discover 读取的同一份清单），收录需要 GitHub 仓库创建满 1 天 + 目录 PR。
-- 已上线：GitHub 仓库 + `v0.1.0` Release 预构建 tarball；本机 live 插件已从该 Release 安装。
-- 待办：npm 发布（配 `NPM_TOKEN` secret 后重新发版即可自动完成）；仓库满 1 天后提交目录 PR。
+```mermaid
+flowchart LR
+  UI[DSH Web UI] --> LOOP[DSH agent loop]
+  LOOP -->|agent/pre-step, agent/request| MODE[Mode controller]
+  LOOP -->|llm.stream| ADAPTER[Codex adapter]
+  ADAPTER -->|stdio JSON-RPC| SERVER[codex app-server]
+  SERVER --> THREAD[Local Codex thread]
+  ADAPTER -.->|synthetic tool-call| BRIDGE[codex_activity bridge tool]
+  BRIDGE -.->|tool/call + tool/result| LOOP
+```
 
-## 已知限制
+A plugin-registered **LLM provider adapter** drives `codex app-server`, one Codex thread per DSH session. Text and reasoning flow through standard stream chunks; tool activity is bridged into real session events so the existing chat UI renders it natively. The mode controller owns the session state, model routing and permission mapping. No DSH core changes and no custom client bundle are involved.
 
-- `codex app-server` 在 Codex 中是 experimental；本项目以 **codex-cli 0.170.0** 为兼容基线，升级 Codex 后可能需要对协议做回归。
-- 线程续接（`thread/resume`）在真实 profile 下可能需要 **5–30 秒**（Codex hooks/skills 加载），首轮或重启后第一句会等得久一点；v1 没有“准备中”进度提示。
-- Codex 的“思考过程文本”是否显示取决于模型服务商；当前本机 provider 只返回 reasoning token 数、不返回摘要文本，因此对话里能看到**思考强度档位**但看不到 thinking 正文。
-- 附件（图片转 `localImage`、文件落盘+路径告知）已实现但未做大规模真实场景验证。
-- 真实审批往返（`approval_policy=on-request`）未做端到端验证；在默认 `danger-full-access/never` 下 Codex 不会发起审批。
-- 与 `ds-harness-remote` 的 Codex 域同时启用时，两者会各自拉起 `codex app-server`；建议只保留一个，避免线程写锁/资源竞争。
-- 工具卡片是 DSH 通用样式（无终端/diff 定制外观）；历史卡片在插件卸载后仍可显示。
-- 本插件以本仓库路径 `link:` 安装；移动或删除本仓库会让 profile 中的插件失效。
+Deeper material: [design](docs/design.md) · [architecture decisions](docs/adr/) · [implementation contract](docs/impl-contract.md) · [verification log](docs/verification.md).
+
+## Permissions & security
+
+- **DSH preset is authoritative.** Each Codex turn receives the sandbox/approval mapped from the DSH session's permission preset (`read-only` / `workspace-write` / `danger-full-access`). If your default preset is `danger-full-access`, Codex commands run with full local access — switch the session preset first if you want tighter limits.
+- **Approvals** raised by Codex become DSH approval cards; declining or cancelling ends that Codex action.
+- **Thread lease**: while mode is on, DSH holds the Codex thread; native Codex will report the session as busy. `/codex off`, agent disposal or plugin unload releases it.
+- **Privacy**: conversation content is sent to whichever model provider your Codex config names — same trust boundary as running Codex directly.
+- The plugin registers exactly one display-only tool (`codex_activity`); it never re-runs Codex commands and adds no other tool surface.
+
+## Compatibility & limitations
+
+- `codex app-server` is experimental in Codex; this release is pinned to the **Codex CLI 0.170.x** protocol and tolerates unknown notifications. Upgrading Codex may require a compatibility pass.
+- The first turn of a resumed Codex thread can take 5–30 s (Codex hooks/skills load); there is no progress indicator yet.
+- Reasoning *text* is provider-dependent: some providers return only reasoning token counts. The thinking **tier** is still visible and selectable.
+- Attachments (images/files) are implemented but not yet heavily battle-tested; extremely large tool output is capped by DSH's spill policy.
+- If another plugin also spawns `codex app-server` (for example a remote-workspace plugin), prefer running one at a time to avoid thread-writer contention.
+
+## Troubleshooting
+
+| Symptom | Fix |
+| --- | --- |
+| `/codex status` says thread “(not created yet)” after enabling | Normal before the first Codex turn; the thread is created on the next message. |
+| Native Codex says the session is locked | Codex mode still holds the thread: run `/codex off` first. |
+| First reply after enabling is slow | Codex thread creation/resume plus hooks can take seconds; subsequent turns are fast. |
+| Model picker does not show codex model | Check the plugin is active (`Plugins → Installed`) and `codex --version` works for the configured `codexBin`. |
+| Typing the trigger does nothing | The phrase must be at the start of the message; use `/codex on` as a fallback. |
+
+## Roadmap
+
+- npm publication and marketplace catalog listing.
+- Optional native terminal / diff card rendering for Codex actions (currently DSH's generic tool cards).
+- End-to-end coverage for attachments and Codex approval round-trips.
+- Progress indicator while a Codex thread is resumed.
+
+## Development
+
+```sh
+node test/scenarios.mjs            # headless end-to-end scenarios (S1–S3)
+node test/run-headless.mjs --help  # one-shot headless runner with assertions
+```
+
+Read [docs/impl-contract.md](docs/impl-contract.md) before changing module boundaries. Test/development helpers live under `test/` and `dev/`; the implementation modules under `src/` have no build step (plain ESM JavaScript).
+
+## License
+
+[MIT](./LICENSE)
