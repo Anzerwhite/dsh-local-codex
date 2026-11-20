@@ -93,10 +93,11 @@ dsh plugin --profile web add dsh-local-codex
 3. 开 PR（只加这一个文件，不改 README），等待 CI + 维护者评审。
 4. 合并后市场目录自动刷新；用户可在「插件市场 / Discover」里搜到并通过 npm 一键安装。
 
-## 现在的阻塞项
+## 当前状态（2026-11-20 18:4x）
 
-- 本机 **没有 npm 登录凭据**（`pnpm whoami` 未授权），无法替用户发布。
-- 本机 **没有可用 GitHub 凭据**（`ssh -T git@github.com` 被拒，无 gh CLI/token），无法建仓库/推代码/开 PR。
-- 仓库创建满 1 天是 CI 硬性门槛：即使今天拿到凭据，目录 PR 也要明天才能提交。
-
-把 npm token、GitHub owner/repo（或 token）给到 Lead 后，A/B 两步可以在今天完成，C 由 Lead 排期/提醒或用户自己执行。
+- ✅ GitHub 仓库已创建并推送：<https://github.com/Anzerwhite/dsh-local-codex>，topics 含 `dsh-plugin`。
+- ✅ `v0.1.0` tag 已推送，GitHub Actions 成功：`npm publish` 因未配置 `NPM_TOKEN` 而按设计跳过；Release 已附 `dsh-local-codex-0.1.0.tgz`。
+- ✅ 本机 live 插件已从该 Release tarball 安装（profile 依赖为 Release URL），完成市场安装路径验证。
+- ⏳ npm 发布：在仓库 Secrets 配置 `NPM_TOKEN` 后，用本地 `publish/publish-npm.sh` 发布（或发下一个 tag 交给 CI）。
+- ⏳ 目录 PR：仓库创建于 2026-11-20T10:35Z，**2026-11-21 之后**才能过 CI 的 1 天门槛；条目文件已生成在 `publish/awesome-dsh-plugin-entry.yml`。
+- 🔐 之前用于建仓/推送的 GitHub token 已从本机删除；请到 GitHub Settings → Developer settings 吊销并重新生成。
