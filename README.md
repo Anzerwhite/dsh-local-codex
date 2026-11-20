@@ -102,7 +102,8 @@ dsh plugin --profile web add -w /workspace/dsh_ifself
 ## 插件市场
 
 - 市场包名：`dsh-local-codex`；发布与收录步骤见 [publish/PUBLISHING.md](./publish/PUBLISHING.md)。
-- 目标目录是社区目录 [awesome-dsh-plugin](https://github.com/awesome-dsh-plugin/awesome-dsh-plugin)（dshmarket 与宿主 Discover 读取的同一份清单），收录需要 npm/GitHub 凭据与仓库创建满 1 天。
+- 本仓库带 `.github/workflows/release.yml`：推 `v*` tag 即由 GitHub Actions 自动 `npm publish` 并附 tarball，无需在本地保存令牌。
+- 目标目录是社区目录 [awesome-dsh-plugin](https://github.com/awesome-dsh-plugin/awesome-dsh-plugin)（dshmarket 与宿主 Discover 读取的同一份清单），收录需要 GitHub 仓库创建满 1 天 + 目录 PR。
 - 未上架前可先用 `dsh plugin --profile web add -w /workspace/dsh_ifself`（本机当前即此方式）或安装 `dist/dsh-local-codex-0.1.0.tgz`。
 
 ## 已知限制

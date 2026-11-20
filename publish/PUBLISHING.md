@@ -17,13 +17,46 @@
   7. 建议发布 npm（安装免构建）；也可以只发 GitHub Release tarball（条目里加 `tarball:`）。
 - 合并后 CI 重新生成 README 并发布 `dsh-plugin-catalog`（jsDelivr 上的 format-1 索引），市场随后刷新目录。
 
-## 步骤 A：npm 发布（两种方式）
+## 推荐路径：GitHub Actions 自动发布（不共享令牌）
 
-**A1（推荐，不共享令牌）：用 GitHub Actions**
-仓库里已带 `.github/workflows/release.yml`：在 GitHub 仓库设置里添加 secret `NPM_TOKEN`（npm automation token），然后 `git tag v0.1.0 && git push origin main --tags`。
-CI 会执行 `npm pack` → `npm publish --access public`，并把 `.tgz` 附到 GitHub Release。
+按顺序执行（把 `OWNER/REPO` 换成你的 GitHub 仓库）：
 
-**A2：本地发布（需要把 npm token 交给执行者）**
+```sh
+cd /workspace/dsh_ifself
+
+# 1) 填写仓库地址并提交（会同时生成市场目录条目文件）
+publish/set-repo.sh OWNER REPO
+
+# 2) 创建 GitHub 仓库后推送
+git remote add origin git@github.com:OWNER/REPO.git
+git push -u origin main
+
+# 3) GitHub 仓库 Settings → Secrets and variables → Actions → New secret
+#    Name: NPM_TOKEN
+#    Value: npm automation token（npmjs.com → Access Tokens → Generate New Token，
+#           选择 Automation，权限 Read and write）
+
+# 4) 打 tag 触发 CI：npm publish + GitHub Release（附 .tgz）
+git tag v0.1.0
+git push origin v0.1.0
+
+# 5) 等 Actions 绿了之后验证
+pnpm view dsh-local-codex version      # 应显示 0.1.0
+```
+
+发布成功后，用户可 `dsh plugin --profile web add dsh-local-codex` 安装；本机也可以把 link 安装换成 npm 版本：
+
+```sh
+# 通过 Plugin Manager 移除 dsh-local-codex 后重新安装（或 dsh plugin add）
+dsh plugin --profile web add dsh-local-codex
+```
+
+**市场目录收录（仓库创建满 1 天后）**：fork
+`https://github.com/awesome-dsh-plugin/awesome-dsh-plugin`，把
+`publish/awesome-dsh-plugin-entry.yml` 复制为 `data/plugins/OWNER__REPO.yml`，开 PR。
+（本仓库已设置提醒排期；到时把仓库地址给 Lead 也可以让 Lead 生成最终文件。）
+
+## 备选：本地 npm 发布（需要把 token 交给执行者）
 
 ```sh
 cd /workspace/dsh_ifself
