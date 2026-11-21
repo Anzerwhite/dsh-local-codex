@@ -22,7 +22,7 @@
 按顺序执行（把 `OWNER/REPO` 换成你的 GitHub 仓库）：
 
 ```sh
-cd /workspace/dsh_ifself
+cd /workspace/dsh_ifself/dsh-local-codex
 
 # 1) 填写仓库地址并提交（会同时生成市场目录条目文件）
 publish/set-repo.sh OWNER REPO
@@ -59,7 +59,7 @@ dsh plugin --profile web add dsh-local-codex
 ## 备选：本地 npm 发布（需要把 token 交给执行者）
 
 ```sh
-cd /workspace/dsh_ifself
+cd /workspace/dsh_ifself/dsh-local-codex
 export NPM_TOKEN=<你的 npm automation token>
 publish/publish-npm.sh           # 等价于：
 # printf '//registry.npmjs.org/:_authToken=%s\n' "$NPM_TOKEN" > ~/.npmrc.publish
@@ -102,6 +102,14 @@ dsh plugin --profile web add dsh-local-codex
   - 无参数：仓库满 1 天后开放 PR（内置 1 天年龄守卫与幂等检查）
 - 计划：`2026-11-21T10:40Z`（仓库满 1 天后）由定时提醒调用脚本开放 PR。
 - GitHub token 存放：仓库根 `.config`（已加入 `.gitignore`，权限 600）；用完建议吊销。
+
+## 市场目录 PR（2026-11-21）
+
+- PR 已打开：<https://github.com/awesome-dsh-plugin/awesome-dsh-plugin/pull/17515>
+- 改动：仅新增 `data/plugins/Anzerwhite__dsh-local-codex.yml`（+7 行）
+- CI：**全部通过**（entry 校验、README 同步、awesome-lint、npm identity、build/locale parity 等）
+- 下一步：等待维护者 review/merge；合并后 catalog 自动重建，市场/Discover 刷新即可搜到 `dsh-local-codex`
+- token：`.config` 中，合并前保留（可能需要响应 review 修改），合并后建议吊销
 
 ## 当前状态（2026-11-20 18:4x）
 
