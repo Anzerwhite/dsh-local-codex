@@ -99,7 +99,7 @@ Codex: 我先跑一遍测试。
 dsh plugin --profile web add https://github.com/Anzerwhite/dsh-local-codex/releases/download/v0.1.0/dsh-local-codex-0.1.0.tgz
 ```
 
-这与 DSH 插件市场提供的预构建 tarball 相同。插件已收录进社区目录（`awesome-dsh-plugin`）；市场与 Discover 的索引会按自己的节奏重建，刷新后即可在应用内搜索到。预构建 tarball 可立即安装同一份产物。
+这与 DSH 插件市场提供的预构建 tarball 相同。插件已收录进社区目录：<https://awesome-dsh-plugin.com/p/Anzerwhite/dsh-local-codex/> —— 刷新 DSH 页面后，在 **插件 → Discover** 搜索 `dsh-local-codex` 即可。预构建 tarball 可立即安装同一份产物。
 
 ### 通过 npm（npm 发布后）
 
