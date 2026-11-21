@@ -99,7 +99,7 @@ Codex: I'll run the test suite first.
 dsh plugin --profile web add https://github.com/Anzerwhite/dsh-local-codex/releases/download/v0.1.0/dsh-local-codex-0.1.0.tgz
 ```
 
-This is the same prebuilt tarball the DSH plugin market serves. The plugin is listed in the community catalog (`awesome-dsh-plugin`); the market and Discover indexes rebuild on their own schedule, so it appears in the in-app search after the next catalog refresh. The release tarball installs the same artifact immediately.
+This is the same prebuilt tarball the DSH plugin market serves. The plugin is listed in the community catalog: <https://awesome-dsh-plugin.com/p/Anzerwhite/dsh-local-codex/> — reload the DSH page and search `dsh-local-codex` in **Plugins → Discover**. The release tarball installs the same artifact immediately.
 
 ### From npm (after the npm release)
 
