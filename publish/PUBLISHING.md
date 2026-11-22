@@ -110,7 +110,8 @@ dsh plugin --profile web add dsh-local-codex
 - CI：**全部通过**（entry 校验、README 同步、awesome-lint、npm identity、build/locale parity 等）
 - ✅ 已合并（2026-11-21T16:52:59Z），主分支 README 已包含 `Anzerwhite/dsh-local-codex` 条目
 - ✅ 站点数据已刷新：`awesome-dsh-plugin.com/plugins.json`（12,497 条）已包含 `dsh-local-codex`，插件页 <https://awesome-dsh-plugin.com/p/Anzerwhite/dsh-local-codex/> 返回 200；dshmarket 直接读该文件，刷新 DSH 页面即可搜索/安装
-- ⏳ npm 索引 `dsh-plugin-catalog`：每晚 02:23 UTC 定时发布，下一次构建后 jsDelivr/Discover 可见
+- ✅ 每晚定时构建已于 2026-11-22T05:51Z 成功发布 `dsh-plugin-catalog@2026.1122.25629`；但**该索引只收录 npm 已发布插件**（6554 条全部为 npm source），本插件未发 npm，因此不在官方索引内 —— 社区市场（dshmarket 读取站点 `plugins.json`）已可见
+- ⏳ 如需进入官方索引/获得 `dsh plugin add dsh-local-codex` 安装方式：发布 npm 包（仓库 secrets 配 `NPM_TOKEN` 或本地 `publish/publish-npm.sh`），随后下一轮 nightly 构建即会收录
 - token：`.config` 中；已合并，建议吊销/轮换
 
 ## 当前状态（2026-11-20 18:4x）
