@@ -99,7 +99,9 @@ Codex: I'll run the test suite first.
 dsh plugin --profile web add https://github.com/Anzerwhite/dsh-local-codex/releases/download/v0.1.0/dsh-local-codex-0.1.0.tgz
 ```
 
-This is the same prebuilt tarball the DSH plugin market serves. The plugin is listed in the community catalog: <https://awesome-dsh-plugin.com/p/Anzerwhite/dsh-local-codex/> — reload the DSH page and search `dsh-local-codex` in **Plugins → Discover**. The release tarball installs the same artifact immediately.
+This is the same prebuilt tarball the community plugin market serves. The plugin is listed in the community catalog: <https://awesome-dsh-plugin.com/p/Anzerwhite/dsh-local-codex/> — reload the DSH page and search `dsh-local-codex` in **Plugins → Discover**. The release tarball installs the same artifact immediately.
+
+The official DSH market *index* only lists npm-published plugins, so `dsh-local-codex` needs an npm release to appear there as well (see [Roadmap](#roadmap)).
 
 ### From npm (after the npm release)
 
@@ -225,7 +227,7 @@ Further reading: [design](docs/design.md) · [architecture decisions](docs/adr/)
 
 ## Roadmap
 
-- npm publication (the community-catalog listing is already merged).
+- npm publication — needed for the official DSH market index (community-catalog listing and a working release tarball are already live).
 - Optional native terminal / diff card rendering for Codex actions.
 - End-to-end coverage for attachments and Codex approval round-trips.
 - Progress indicator while a Codex thread is resumed.
