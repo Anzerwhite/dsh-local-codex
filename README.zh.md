@@ -99,7 +99,9 @@ Codex: 我先跑一遍测试。
 dsh plugin --profile web add https://github.com/Anzerwhite/dsh-local-codex/releases/download/v0.1.0/dsh-local-codex-0.1.0.tgz
 ```
 
-这与 DSH 插件市场提供的预构建 tarball 相同。插件已收录进社区目录：<https://awesome-dsh-plugin.com/p/Anzerwhite/dsh-local-codex/> —— 刷新 DSH 页面后，在 **插件 → Discover** 搜索 `dsh-local-codex` 即可。预构建 tarball 可立即安装同一份产物。
+这与社区插件市场提供的预构建 tarball 相同。插件已收录进社区目录：<https://awesome-dsh-plugin.com/p/Anzerwhite/dsh-local-codex/> —— 刷新 DSH 页面后，在 **插件 → Discover** 搜索 `dsh-local-codex` 即可。预构建 tarball 可立即安装同一份产物。
+
+官方 DSH 市场**索引**只收录已发布到 npm 的插件，所以要在官方索引里也出现，还需要一次 npm 发布（见[路线图](#路线图)）。
 
 ### 通过 npm（npm 发布后）
 
@@ -225,7 +227,7 @@ flowchart LR
 
 ## 路线图
 
-- npm 发布（社区目录收录已完成合并）。
+- npm 发布 —— 用于进入官方 DSH 市场索引（社区目录收录与预构建 tarball 已可用）。
 - 可选的 Codex 动作原生终端/diff 卡片。
 - 附件与 Codex 审批往返的端到端覆盖。
 - Codex 线程 resume 时的进度提示。
