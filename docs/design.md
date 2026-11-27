@@ -284,7 +284,7 @@ table: sessions
 2. 把会话标题与压缩的 provider/model 固定到 DSH 默认路由。
 3. 如使用 `ds-harness-remote`，建议关闭其 Codex 域（避免重复 app-server / 线程写锁竞争）。
 
-安装（开发期）：构建到 `dist/` 后用 `dsh plugin --profile web add -w /workspace/dsh_ifself`（或把包路径写进 profile `package.json` 的 `dsh.profile.bundles`）；profile 为 `patchReload: live`，重载后生效。发布形态：npm 包 + plugin manager 安装。
+安装（开发期）：构建到 `dist/` 后用 `dsh plugin --profile web add -w /workspace/dsh_ifself/dsh-local-codex`（或把包路径写进 profile `package.json` 的 `dsh.profile.bundles`）；profile 为 `patchReload: live`，重载后生效。发布形态：npm 包 + plugin manager 安装。
 
 可配置项（`Config` schema 草案）：
 
@@ -368,6 +368,7 @@ P0–P4 主链路已实现并在本机 Web profile 安装运行；P5 的权限�
 - 思考强度：adapter 在模型目录声明 Codex 档位（minimal/low/medium/high/xhigh，默认取 Codex 配置），`agent/request` 保留并映射 effort（DSH `max` → `xhigh`），adapter 逐轮传给 `turn/start.effort`；`/codex status` 显示会话实际档位。
 - 模型上下文窗口在适配器元数据中沿用 200k 声明（provider 实际报告约 475k），只影响 UI 容量估算。
 - `thread/resume` 在真实 profile 下较慢（5–30s，Codex hooks/skills 加载）；v1 无“准备中”提示。
-- 运维事实：web profile 以 `link:/workspace/dsh_ifself` 安装；本机 profile 环境原本缺少 `pnpm`，为让 Plugin Manager 能安装，创建了 `/usr/bin/pnpm` shim 指向 corepack 缓存（pnpm 11.24.0）。插件代码更新后，关闭再开启 bundle 以加载新模块。
+- 运维事实：web profile 通过 Plugin Manager 安装（开发期为 `link:/workspace/dsh_ifself/dsh-local-codex`，发布后为 v0.1.0 GitHub Release tarball）；本机 profile 环境原本缺少 `pnpm`，为让 Plugin Manager 能安装，创建了 `/usr/bin/pnpm` shim 指向 corepack 缓存（pnpm 11.24.0）。插件代码更新后，关闭再开启 bundle 以加载新模块。
 - Codex reasoning 摘要文本在本机 provider 下不可用（仅 token 计数），因此“思考过程”不可见；档位可见可调。
+- **上下文窗口**：早期固定声明 200k，会让 DSH 的上下文计量/压缩阈值与实际 Codex 模型（如 475k）不符。现改为：首轮后从 `thread/tokenUsage/updated.tokenUsage.modelContextWindow` 学习真实窗口并更新 `request/context`，支持 `contextWindow` 配置覆盖，并回退读取 Codex `model_context_window`。
 - **线程占用释放**：app-server 以 `-c thread_unload_delay_secs=0` 启动；`/codex off`（或会话/插件销毁）时调用 `thread/unsubscribe`，Codex 线程会在数百毫秒内 unload 并释放 `~/.codex/thread-writer-locks` 上的 flock，原生 Codex TUI 可立即重开该线程；threadId 保留，重新开启时 `thread/resume`。模式开启期间线程由 DSH 持有属预期行为。
