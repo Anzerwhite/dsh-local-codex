@@ -163,6 +163,7 @@ Configuration is optional; defaults target a standard local Codex install. Add a
 | `providerName` | `codex` | LLM provider route registered with DSH. |
 | `model` | `model` in `~/.codex/config.toml` | Model id exposed to the DSH picker. |
 | `cwd` | session working directory | Override the Codex thread working directory. |
+| `contextWindow` | auto (fallback `200000`) | Context capacity advertised to DSH. Auto-detected from Codex `tokenUsage.modelContextWindow` after the first turn; set explicitly to pin it. |
 | `requestTimeoutMs` | `60000` | app-server request timeout. |
 | `bootstrapLimitChars` | `24000` | Character budget of the history digest injected once when the Codex thread is created. |
 | `reasoningEffort` | Codex config `model_reasoning_effort` | Default thinking effort. |
@@ -208,6 +209,7 @@ Further reading: [design](docs/design.md) · [architecture decisions](docs/adr/)
 
 ## Limitations
 
+- The first Codex turn advertises the fallback context window (200k) until Codex reports the model's real `modelContextWindow`; from the next request DSH's context meter and compaction thresholds use the learned value (or set `contextWindow` explicitly).
 - The first turn of a resumed Codex thread can take 5–30 s (Codex hooks/skills load); there is no progress indicator yet.
 - Reasoning *text* is provider-dependent: some providers return only reasoning token counts. The thinking tier is still visible and selectable.
 - Attachments are implemented but not yet heavily battle-tested; very large tool output is capped by DSH's spill policy.
