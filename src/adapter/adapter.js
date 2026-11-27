@@ -36,7 +36,13 @@ import { BRIDGE_TOOL_NAME } from '../bridge/tool.js'
 /** Provider display name reported to the LLM catalog. */
 export const PROVIDER_DISPLAY_NAME = 'Codex (local)'
 
-/** Context capacity advertised for the codex route (contract §3.1). */
+/**
+ * Fallback context capacity advertised for the codex route until Codex tells us
+ * the real window. Codex reports the authoritative value per thread in
+ * `thread/tokenUsage/updated` as `tokenUsage.modelContextWindow` (for example
+ * 475000 for a large-context provider model); advertising a hard-coded 200k
+ * makes DSH's context meter and compaction thresholds wrong for those models.
+ */
 export const CODEX_CONTEXT_WINDOW = 200000
 
 /** Error text for unsupported auxiliary calls when no fallback was injected. */
@@ -90,6 +96,21 @@ export function createCodexAdapter({ runtime, mode, log, config, takeResult: inj
   const reasoningSummary = normalizeReasoningSummary(settings.reasoningSummary)
   /** Safety net: the DSH loop has no step cap, so bound bridged actions per user turn. */
   const maxBridgeCallsPerTurn = positiveInt(settings.maxBridgeCallsPerTurn) ?? 200
+  /** Context capacity advertised to DSH; updated once Codex reports the real one. */
+  let contextWindow = positiveInt(settings.contextWindow) ?? CODEX_CONTEXT_WINDOW
+
+  /**
+   * Keep the advertised window in sync with Codex. `thread/tokenUsage/updated`
+   * carries `modelContextWindow`; DSH only records a new `request/context` when
+   * the advertised value changes, so applying it here is visible on the next
+   * request (context meter and compaction thresholds then match the model).
+   */
+  function applyContextWindow(usage) {
+    const window = positiveInt(usage?.modelContextWindow)
+    if (window === undefined || window === contextWindow) return
+    logger.info(`codex adapter: codex model context window ${contextWindow} -> ${window}`)
+    contextWindow = window
+  }
   const resolveEffortForLog = (requested) => normalizeReasoningEffort(requested) ?? defaultReasoningEffort
 
   /** @type {Map<string, SessionState>} */
@@ -169,6 +190,10 @@ export function createCodexAdapter({ runtime, mode, log, config, takeResult: inj
    */
   function handleEvent(event) {
     if (!event || typeof event !== 'object') return
+    // Learn the Codex model's real context window as soon as Codex reports it,
+    // even before/without an active stream consumer (the next request then
+    // advertises the updated capacity through request/context).
+    if (event.type === 'token_usage_updated' || event.type === 'turn_completed') applyContextWindow(event?.usage)
     applyPendingEvent(event)
     const state = stateForEvent(event)
     if (!state) {
@@ -471,6 +496,7 @@ export function createCodexAdapter({ runtime, mode, log, config, takeResult: inj
   function buildCompletedChunks(state, emitter, event) {
     const chunks = []
     chunks.push(...emitter.close())
+    applyContextWindow(event?.usage)
     const usage = normalizeUsage(event?.usage)
     if (usage) chunks.push(...emitter.usage(usage))
     const interrupted = event?.status === 'interrupted'
@@ -834,8 +860,12 @@ export function createCodexAdapter({ runtime, mode, log, config, takeResult: inj
             yield* buildErrorChunks(state, emitter, event)
             return
           }
+          case 'token_usage_updated': {
+            applyContextWindow(event?.usage)
+            logger.debug('codex adapter: applied token usage / context window update')
+            continue
+          }
           case 'plan_updated':
-          case 'token_usage_updated':
           case 'warning':
           case 'raw': {
             logger.debug(`codex adapter: ignoring ${String(event.type)} event`)
@@ -882,7 +912,7 @@ export function createCodexAdapter({ runtime, mode, log, config, takeResult: inj
         provider,
         id,
         name: id,
-        context: { contextWindow: CODEX_CONTEXT_WINDOW },
+        context: { contextWindow },
         inputModalities: ['text', 'image'],
         toolUpdate: 'in-history',
         reasoning: {
