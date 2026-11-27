@@ -4,7 +4,7 @@
 #
 #   DSH_PROBE_OUT=/tmp/dsh-codex-probe.json \
 #   DSH_HOME=/tmp/dsh-codex-home-probe dsh --profile headless \
-#     --patch /workspace/dsh_ifself/dev/probe.overlay.yml "say hi"
+#     --patch /workspace/dsh_ifself/dsh-local-codex/dev/probe.overlay.yml "say hi"
 - insert:
     - id: codex-mode-test
       name: '../index.js'
