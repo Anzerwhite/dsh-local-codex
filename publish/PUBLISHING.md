@@ -122,3 +122,10 @@ dsh plugin --profile web add dsh-local-codex
 - ⏳ npm 发布：在仓库 Secrets 配置 `NPM_TOKEN` 后，用本地 `publish/publish-npm.sh` 发布（或发下一个 tag 交给 CI）。
 - ⏳ 目录 PR：仓库创建于 2026-11-20T10:35Z，**2026-11-21 之后**才能过 CI 的 1 天门槛；条目文件已生成在 `publish/awesome-dsh-plugin-entry.yml`。
 - 🔐 之前用于建仓/推送的 GitHub token 已从本机删除；请到 GitHub Settings → Developer settings 吊销并重新生成。
+
+
+## 0.1.1（2026-11-27）
+
+- 修复上下文窗口：适配器从 Codex `thread/tokenUsage/updated.tokenUsage.modelContextWindow` 学习真实窗口（如 475k），不再固定 200k；新增 `contextWindow` 配置覆盖与 `model_context_window` 回退。
+- Release：<https://github.com/Anzerwhite/dsh-local-codex/releases/tag/v0.1.1>；本机 profile 已安装该 tarball。
+- 目录条目更新 PR（v0.1.1 tarball）：<https://github.com/awesome-dsh-plugin/awesome-dsh-plugin/pull/19405>
