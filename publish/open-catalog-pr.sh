@@ -5,7 +5,7 @@
 #   publish/open-catalog-pr.sh --prepare-only   # fork + branch + entry file, no PR
 #   publish/open-catalog-pr.sh                  # also open the PR (after the 1-day gate)
 #
-# Reads GITHUB_TOKEN from /workspace/dsh_ifself/.config (gitignored).
+# Reads GITHUB_TOKEN from /workspace/dsh_ifself/dsh-local-codex/.config (gitignored).
 set -eu
 cd "$(dirname "$0")/.."
 if [ ! -f .config ]; then
