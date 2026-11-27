@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.1 — 2026-11-27
+
+- Fix context window advertisement: the adapter no longer hard-codes 200k for every Codex model. It now reads Codex's reported `modelContextWindow` from `thread/tokenUsage/updated` and updates the DSH route's advertised window (so the context meter and compaction thresholds match large-window Codex providers), with a new `contextWindow` config override and `model_context_window` fallback from `~/.codex/config.toml`.
+
 ## 0.1.0 — 2026-11-20
 
 Initial release.
