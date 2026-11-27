@@ -120,7 +120,7 @@ if MODE == "--prepare-only":
 
 # 5. Open the PR (idempotent: report an existing one).
 head = f"{OWNER}:{BRANCH}"
-existing = gh("GET", f"/repos/{UPSTREAM}/pulls?head={head}&state=all")
+existing = gh("GET", f"/repos/{UPSTREAM}/pulls?head={head}&state=open")
 if isinstance(existing, list) and existing:
     print("PR already exists:", existing[0]["html_url"])
     sys.exit(0)
