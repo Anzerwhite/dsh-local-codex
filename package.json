@@ -1,6 +1,6 @@
 {
   "name": "dsh-local-codex",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Codex Mode for DeepSeek Harness: hand one session to your local Codex CLI and show its replies, commands and file changes inline. / 把单个 DSH 会话交给本机 Codex 并同步显示其回复与工具动作。",
   "type": "module",
   "main": "./index.js",
