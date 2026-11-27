@@ -39,6 +39,16 @@ function codexHome() {
 }
 
 /** Resolve the codex model id: explicit config wins, then ~/.codex/config.toml. */
+function readCodexConfigInteger(key) {
+  try {
+    const text = readFileSync(path.join(codexHome(), 'config.toml'), 'utf8')
+    const match = text.match(new RegExp(`^\\s*${key}\\s*=\\s*(\\d+)`, 'm'))
+    return match ? Number(match[1]) : undefined
+  } catch {
+    return undefined
+  }
+}
+
 function readCodexConfigString(key) {
   try {
     const text = readFileSync(path.join(codexHome(), 'config.toml'), 'utf8')
@@ -72,6 +82,10 @@ function resolveDefaults(config) {
       source.reasoningEffort || readCodexConfigString('model_reasoning_effort') || 'xhigh',
     reasoningSummary: source.reasoningSummary || readCodexConfigString('model_reasoning_summary'),
     codexEfforts: Array.isArray(source.codexEfforts) ? source.codexEfforts : undefined,
+    // Context capacity: explicit config wins, then Codex's own model_context_window
+    // override; when absent the adapter learns the real window from Codex after
+    // the first turn (thread/tokenUsage/updated.modelContextWindow).
+    contextWindow: source.contextWindow ?? readCodexConfigInteger('model_context_window'),
   }
 }
 
