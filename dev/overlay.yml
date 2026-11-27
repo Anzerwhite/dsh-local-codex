@@ -6,7 +6,7 @@
 #
 # Loader patch dialect: top-level YAML array of patch entries. An inserted row's
 # relative `name` is anchored beside this patch file (i.e. '../index.js' ->
-# /workspace/dsh_ifself/index.js), so the overlay is relocatable with the repo.
+# /workspace/dsh_ifself/dsh-local-codex/index.js), so the overlay is relocatable with the repo.
 #
 # Row id is deliberately distinct from the bundle row id (`codex-mode` in
 # cordis.patch.yml) so mounting via --patch never collides with an installed
