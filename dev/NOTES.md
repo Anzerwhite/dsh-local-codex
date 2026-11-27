@@ -26,8 +26,8 @@ Environment facts pinned for this work:
 ```
 
 `name: '../index.js'` is a **file specifier anchored beside the patch file**
-(`/workspace/dsh_ifself/dev/overlay.yml` → `/workspace/dsh_ifself/index.js`), so
-the overlay travels with the repo. `name: '/workspace/dsh_ifself/index.js'`
+(`/workspace/dsh_ifself/dsh-local-codex/dev/overlay.yml` → `/workspace/dsh_ifself/dsh-local-codex/index.js`), so
+the overlay travels with the repo. `name: '/workspace/dsh_ifself/dsh-local-codex/index.js'`
 (absolute file path) also loads; both variants were actually run.
 
 Command (isolated home, no profile files touched):
@@ -35,7 +35,7 @@ Command (isolated home, no profile files touched):
 ```bash
 DSH_HOME=/tmp/dsh-codex-home \
 PATH=/root/.npm-global/bin:$PATH \
-timeout 120 dsh --profile headless --patch /workspace/dsh_ifself/dev/overlay.yml "say hi"
+timeout 120 dsh --profile headless --patch /workspace/dsh_ifself/dsh-local-codex/dev/overlay.yml "say hi"
 ```
 
 Observed: `stdout` contains `[codex-mode] plugin loaded` (the placeholder
@@ -48,7 +48,7 @@ independently of the model call**.
 | `name` form | result |
 |---|---|
 | `'../index.js'` (relative file path) | ✅ loads, anchored beside the patch file |
-| `'/workspace/dsh_ifself/index.js'` (absolute file path) | ✅ loads |
+| `'/workspace/dsh_ifself/dsh-local-codex/index.js'` (absolute file path) | ✅ loads |
 | `'@local/dsh-codex-mode'` (package specifier) | ❌ `failed to import: ERR_MODULE_NOT_FOUND ... Cannot find package '@local/dsh-codex-mode' imported from <DSH_HOME>/profiles/headless/` → `dsh: warning: 1 entry did not activate`, exit 1 |
 
 Package specifiers resolve from the profile directory's `node_modules`, which is
@@ -126,7 +126,7 @@ CLI/provider, not needed for M2; do not assume it is the DSH model key.
 DEEPSEEK_API_KEY=… DSH_HOME=/tmp/dsh-codex-home-m2 \
 PATH=/root/.npm-global/bin:$PATH \
 timeout 180 dsh --profile headless \
-  --patch /workspace/dsh_ifself/dev/overlay.yml "Reply with exactly: pong"
+  --patch /workspace/dsh_ifself/dsh-local-codex/dev/overlay.yml "Reply with exactly: pong"
 ```
 
 → exit code `0`, stdout (after the plugin probe line): `pong`.
@@ -216,9 +216,9 @@ Reproduce:
 
 ```bash
 DEEPSEEK_API_KEY=… DSH_HOME=/tmp/dsh-codex-home-probe \
-DSH_PROBE_OUT=/workspace/dsh_ifself/dev/headless-services.json \
+DSH_PROBE_OUT=/workspace/dsh_ifself/dsh-local-codex/dev/headless-services.json \
 PATH=/root/.npm-global/bin:$PATH \
-dsh --profile headless --patch /workspace/dsh_ifself/dev/probe.overlay.yml "Reply with exactly: pong"
+dsh --profile headless --patch /workspace/dsh_ifself/dsh-local-codex/dev/probe.overlay.yml "Reply with exactly: pong"
 ```
 
 Artifacts: `dev/probe-plugin.js`, `dev/probe.overlay.yml`, machine-readable
