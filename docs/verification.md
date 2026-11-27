@@ -1,6 +1,6 @@
 # 验收记录（2026-11-20）
 
-环境：DSH `0.2.1-rc.5`（web profile 运行于 `http://127.0.0.1:3080`，headless profile 用于自动化），Node `v24.22.2`，codex-cli `0.170.0`（`/root/.npm-global/bin/codex`，自定义 provider，无需 login）。插件以 `link:/workspace/dsh_ifself` 安装进 web profile。
+环境：DSH `0.2.1-rc.5`（web profile 运行于 `http://127.0.0.1:3080`，headless profile 用于自动化），Node `v24.22.2`，codex-cli `0.170.0`（`/root/.npm-global/bin/codex`，自定义 provider，无需 login）。插件（开发期）以 `link:/workspace/dsh_ifself/dsh-local-codex` 安装进 web profile；此后 web profile 改为依赖 v0.1.0 GitHub Release tarball。
 
 ## 自动化
 
@@ -41,6 +41,12 @@ headless E2E 覆盖：
 - 探针实测（`scratch/lead/thread-release-probe2.mjs`）：thread 加载后 `flock -n` 失败（LOCKED）；`thread/unsubscribe` 返回 `{"status":"unsubscribed"}`；+300ms 后 `thread/loaded/list` 为空、lock 文件删除、`flock -n` 成功（free）。
 - 线上实测（web 日志）：`/codex off` 后出现 `released codex thread 01a1f849-… (session …)`；用户确认修复后原生 Codex 可正常打开该会话。
 - 模式开启期间线程由 DSH 持有，原生 Codex 打不开属预期；先 `/codex off` 即可释放。注意原生 Codex 自己的后台 daemon 也会持有它打开的线程锁，与本插件无关。
+
+## 上下文窗口修复（2026-11-27）
+
+- 现象：Codex 模型真实窗口 475k，但适配器固定声明 200k，DSH 会话上下文用量（如 426k）超过 UI 声明窗口。
+- 修复：适配器从 `thread/tokenUsage/updated.tokenUsage.modelContextWindow` 学习真实窗口并更新 `request/context`；新增 `contextWindow` 配置覆盖与 Codex `model_context_window` 回退。
+- 验证：adapter 单测新增场景（配置覆盖 + 动态学习 + 非法值防御）；真实 Codex 集成脚本 `scratch/lead/ctx-window-real-test.mjs`：首轮前 200000 → 首轮后 **475000 PASS**。
 
 ## 未覆盖 / 需注意
 
