@@ -163,6 +163,7 @@ dsh plugin --profile web remove dsh-local-codex
 | `providerName` | `codex` | 注册给 DSH 的 LLM provider 路由名。 |
 | `model` | `~/.codex/config.toml` 的 `model` | 暴露给 DSH 模型选择器的模型 id。 |
 | `cwd` | 会话工作目录 | 覆盖 Codex 线程工作目录。 |
+| `contextWindow` | 自动（回退 `200000`） | 向 DSH 声明的上下文容量。首轮后自动读取 Codex 的 `tokenUsage.modelContextWindow`；也可显式固定。 |
 | `requestTimeoutMs` | `60000` | app-server 单请求超时。 |
 | `bootstrapLimitChars` | `24000` | 首次创建 Codex 线程时注入的历史摘要字符预算。 |
 | `reasoningEffort` | Codex 配置的 `model_reasoning_effort` | 默认思考强度。 |
@@ -208,6 +209,7 @@ flowchart LR
 
 ## 限制
 
+- 首轮 Codex 请求仍声明回退上下文窗口（200k），直到 Codex 上报真实 `modelContextWindow`；从下一次请求起 DSH 的上下文计量与压缩阈值会使用真实值（也可用 `contextWindow` 显式固定）。
 - 恢复 Codex 线程后的第一轮可能耗时 5–30 秒（Codex hooks/skills 加载），暂无进度提示。
 - 思考**正文**取决于 provider：部分 provider 只返回 reasoning token 计数；思考**档位**仍然可见、可切换。
 - 附件（图片/文件）已实现但尚未大规模验证；超大工具输出受 DSH spill 策略限制。
